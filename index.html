@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <video class="bg-video" autoplay muted loop playsinline>
-      <source src="knoblauchhaus.mp4" type="video/mp4" />
-    </video>
+    <video class="bg-video" id="bgVideo" autoplay muted loop playsinline crossorigin="anonymous"></video>
     <div class="bg-layer"></div>
 
     <header class="hero">
@@ -18,8 +16,24 @@
       <p class="lead">
         Interaktive Lernumgebung in zwei Teilen: erst Inhaltssicherung zu Religion,
         Philosophie und Politik, dann kreative Reinszenierung als eigener
-        Kostümfilm mit GitHub-Upload.
+        Kostümfilm mit Abgabe ohne GitHub-Zugang.
       </p>
+
+      <article class="bg-control-box">
+        <h3>Hintergrundclip (Dropbox)</h3>
+        <div class="bg-controls">
+          <label for="bgVideoSelect">Clip</label>
+          <select id="bgVideoSelect"></select>
+
+          <label for="bgBlurRange">Blur</label>
+          <input id="bgBlurRange" type="range" min="0" max="14" step="1" value="5" />
+
+          <label for="bgBrightnessRange">Helligkeit</label>
+          <input id="bgBrightnessRange" type="range" min="45" max="100" step="1" value="72" />
+        </div>
+        <p class="bg-status" id="bgVideoStatus">Video wird geladen...</p>
+      </article>
+
       <div class="hero-actions">
         <a href="#teil1" class="btn">Teil 1 starten</a>
         <a href="#teil2" class="btn ghost">Teil 2 planen</a>
@@ -30,13 +44,33 @@
       <section class="panel" id="teil1">
         <h2>Teil 1: Inhaltssicherung</h2>
         <p>
-          Grundlage: deine Jenny-Papers plus die Transkripte zu Knoblauchhaus und
-          Biedermeier/Revolution. Nutzt die Faktenkarten als Fundament für
-          argumentatives Sprechen im Salon.
+          Grundlage: die vollständigen Jenny-Papers plus die beiden Transkripte.
+          Keine MC-Tests: differenzierte Freitextfragen mit strenger
+          Sofortkorrektur, Musterlösungen und Export.
         </p>
 
         <div class="theme-switch" id="themeSwitch" aria-label="Themenauswahl"></div>
         <article class="theme-panel" id="themePanel"></article>
+      </section>
+
+      <section class="panel" id="originalquellen">
+        <h2>Originalquellen (voll sichtbar)</h2>
+        <p>
+          Vollständige extrahierte Quelltexte direkt in der App. Suchbar,
+          exportierbar, zitierbar.
+        </p>
+
+        <div class="source-toolbar">
+          <label for="paperSelect">Dokument</label>
+          <select id="paperSelect"></select>
+          <input id="paperSearchInput" type="text" placeholder="Begriff suchen (z. B. Emanzipation)" />
+          <button class="btn small" id="paperSearchBtn" type="button">Suche</button>
+          <button class="btn ghost small" id="paperExportBtn" type="button">Aktuelles Original exportieren</button>
+        </div>
+
+        <p class="paper-meta" id="paperMeta"></p>
+        <ul class="paper-results" id="paperSearchResults"></ul>
+        <pre class="paper-viewer" id="paperViewer"></pre>
       </section>
 
       <section class="panel" id="ressourcen">
@@ -44,10 +78,7 @@
         <div class="resource-grid">
           <article class="resource-card">
             <h3>Video 1: Knoblauchhaus</h3>
-            <p>
-              Fokus auf Wohnkultur, Raumaufteilung, Familienalltag, Salonpraxis
-              und Biedermeier-Materialität.
-            </p>
+            <p>Wohnkultur, Raumlogik, Familienalltag, Salons im Biedermeier.</p>
             <div class="resource-actions">
               <a
                 href="https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&dl=0"
@@ -68,10 +99,7 @@
 
           <article class="resource-card">
             <h3>Video 2: Wir Deutschen Folge 11</h3>
-            <p>
-              Fokus auf Vormärz-Kontext, Zensur, Revolution 1848,
-              Nationalstaatsfrage und gesellschaftliche Bruchlinien.
-            </p>
+            <p>Vormärz, Zensur, Nation, 1848 und politischer Strukturwandel.</p>
             <div class="resource-actions">
               <a
                 href="https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&dl=0"
@@ -82,6 +110,48 @@
               >
               <a
                 href="https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&raw=1"
+                target="_blank"
+                rel="noreferrer"
+                class="btn ghost small"
+                >Direkt (raw=1)</a
+              >
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <h3>Video 3: Roman einer ungelösten Epoche</h3>
+            <p>Lehrfilm für die diskursive Einbettung von Jenny im Vormärz.</p>
+            <div class="resource-actions">
+              <a
+                href="https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0"
+                target="_blank"
+                rel="noreferrer"
+                class="btn small"
+                >Dropbox-Link</a
+              >
+              <a
+                href="https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&raw=1"
+                target="_blank"
+                rel="noreferrer"
+                class="btn ghost small"
+                >Direkt (raw=1)</a
+              >
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <h3>Video 4: Berlins Salons: Macht und Geist</h3>
+            <p>Vertiefung zu Öffentlichkeit, Diskursmacht und Zeitdiagnose.</p>
+            <div class="resource-actions">
+              <a
+                href="https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&dl=0"
+                target="_blank"
+                rel="noreferrer"
+                class="btn small"
+                >Dropbox-Link</a
+              >
+              <a
+                href="https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&raw=1"
                 target="_blank"
                 rel="noreferrer"
                 class="btn ghost small"
@@ -178,35 +248,45 @@
         </article>
       </section>
 
-      <section class="panel" id="upload">
-        <h2>Upload-Workflow für GitHub</h2>
+      <section class="panel" id="abgabe">
+        <h2>Abgabe ohne GitHub-Zugang</h2>
         <p>
-          Die App lädt nicht direkt hoch, sondern erzeugt ein
-          <code>manifest.json</code> und PR-Beschreibung. Das Video legt ihr dann
-          manuell in <code>submissions/</code> ab.
+          Technische Lösung: Upload der Filme in einen <strong>gemeinsamen Dropbox-Abgabeordner</strong>
+          (oder einen anderen zentralen Cloud-Upload-Link der Lehrperson). Die App
+          nutzt den hinterlegten Standard-Link und erzeugt ein standardisiertes Metadatenpaket
+          für die Auswertung.
         </p>
 
-        <form id="uploadForm" class="upload-form">
+        <form id="submissionForm" class="upload-form">
           <input id="className" type="text" placeholder="Klasse (z. B. S3d)" required />
           <input id="groupName" type="text" placeholder="Gruppenname" required />
           <input id="topicName" type="text" placeholder="Debattenfokus" required />
-          <input id="videoFile" type="text" placeholder="Videodatei (z. B. salonfilm.mp4)" required />
+          <input id="videoFile" type="text" placeholder="Dateiname (z. B. s3d_gruppeA_salonfilm.mp4)" required />
           <input id="members" type="text" placeholder="Mitglieder (Komma-getrennt)" required />
           <input id="duration" type="text" placeholder="Länge (z. B. 06:40)" required />
-          <button class="btn small" type="submit">Manifest + PR-Text erzeugen</button>
+          <input id="dropboxRequestLink" type="url" placeholder="Dropbox-Abgabeordner-Link der Lehrperson" required />
+          <input id="uploadedVideoLink" type="url" placeholder="Optional: öffentlicher Link zum hochgeladenen Film" />
+          <input id="teacherEmail" type="email" placeholder="Optional: Lehrperson E-Mail" />
+          <button class="btn small" type="submit">Metadatenpaket erzeugen</button>
         </form>
 
-        <pre id="uploadPreview" class="upload-preview"></pre>
+        <div class="resource-actions">
+          <button class="btn ghost small" id="openDropboxRequestBtn" type="button">Dropbox-Abgabe öffnen</button>
+          <button class="btn ghost small" id="copySubmissionTextBtn" type="button">Abgabetext kopieren</button>
+        </div>
+
+        <pre id="submissionPreview" class="upload-preview"></pre>
       </section>
     </main>
 
     <footer>
       <p>
-        Quellenbasis im Repo: Jenny-Dokumente I-III und Dok 4, Transkript
-        Knoblauchhaus, Transkript Biedermeier, Berliner Salon-PDF (Inhaltsstruktur).
+        Quellenbasis im Repo: vollständige Jenny-Dokumente I-III, Dok 4,
+        Transkript Knoblauchhaus, Transkript Biedermeier.
       </p>
     </footer>
 
+    <script src="papers-data.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

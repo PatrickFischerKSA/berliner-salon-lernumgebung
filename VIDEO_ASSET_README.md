@@ -1,7 +1,5 @@
 # Video-Hinweis
 
-Bitte die Datei direkt im Root des Repos ablegen:
+Dieses Projekt nutzt Dropbox-Streaming-Links für Hintergrundclips und Ressourcen.
 
-- `knoblauchhaus.mp4` (Trailer, läuft im Hintergrund geblurt)
-
-Die Datei wird absichtlich nicht automatisch integriert.
+Lokale MP4-Dateien sollen nicht ins Repo committed werden (GitHub-Grössenlimit).

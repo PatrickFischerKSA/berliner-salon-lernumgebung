@@ -3,19 +3,20 @@
 Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 
 1. Inhaltssicherung zu **Religion, Philosophie, Politik** auf Basis der Jenny-Papers und Transkripte.
-2. Kreative Reinszenierung als **Salon-Diskussion im Kostümfilm** mit GitHub-basierter Abgabe.
+2. Kreative Reinszenierung als **Salon-Diskussion im Kostümfilm** mit Abgabe **ohne GitHub-Account**.
 
 ## Schnellstart
 
 1. Repo klonen.
-2. Trailer-Datei selbst hinzufügen (wegen Korruptionsrisiko bei Integrationen):
-   - `knoblauchhaus.mp4` (direkt im Root)
-3. `index.html` im Browser öffnen.
+2. `index.html` im Browser öffnen.
+3. In der App bei **Abgabe ohne GitHub-Zugang** den Dropbox-Abgabeordner-Link prüfen/anpassen (Standard-Link ist hinterlegt).
 
-## Pflichtressourcen (integriert als Links)
+## Pflichtressourcen (Dropbox)
 
-- [Knoblauchhaus (Dropbox)](https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&dl=0)
-- [Wir Deutschen Folge 11 (Dropbox)](https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&dl=0)
+- [Knoblauchhaus](https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&dl=0)
+- [Wir Deutschen Folge 11](https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&dl=0)
+- [Roman einer ungelösten Epoche](https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0)
+- [Berlins Salons: Macht und Geist](https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&dl=0)
 
 ## Struktur
 
@@ -25,30 +26,36 @@ berliner-salon-lernumgebung/
 ├── index.html
 ├── styles.css
 ├── app.js
-├── PR_TEMPLATE.md
-├── VIDEO_ASSET_README.md
-├── SUBMISSIONS_README.md
-├── factsheets-religion-philosophie-politik.md
-├── rollen-und-inszenierung.md
-├── bewertungsraster.md
-├── quellenbasis.md
-└── knoblauchhaus.mp4 (manuell hinzufügen, Root)
+├── papers-data.js
+├── ORIGINAL_Dokument_JennyI.txt
+├── ORIGINAL_Dokument_JennyII.txt
+├── ORIGINAL_Dokument_Jenny_3.txt
+├── ORIGINAL_Dok_4.txt
+├── ORIGINAL_Transkript_Knoblauchhaus.txt
+├── ORIGINAL_Transkript_Biedermeier.txt
+└── ...weitere Materialdateien
 ```
 
 ## Was die Lernumgebung abdeckt
 
-- Dynamische Faktenkarten und Mini-Quiz für Religion, Philosophie, Politik.
-- Quellenbezogene Arbeitsaufträge für salonfähige Debatten.
-- Rollenverteilung, Diskussions-Timer, Raumskizze.
-- Produktionscheckliste und Storyboard-Export.
-- Manifest-Generator für standardisierte GitHub-Abgaben.
+- Dynamische Faktenkarten für Religion, Philosophie, Politik.
+- Differenzierte Freitextfragen mit Sofortkorrektur, Rubrikfeedback und Musterlösungen.
+- Strenge Bewertung mit KO-Kriterien:
+  - Pflichtstruktur (These + Beleg + Begründung + Gegeneinwand)
+  - Pflicht-Quellenverweis
+  - Pflicht-Direktzitat
+- Exportfunktion für Antworten + Korrektur + Musterlösung als Markdown.
+- Vollständige Originaltexte der Jenny-Papers und Transkripte direkt sichtbar in der App.
+- Rollenverteilung, Diskussions-Timer, Raumskizze, Storyboard-Export.
 
-## Abgabeprozess (Kurzfassung)
+## Abgabeprozess ohne GitHub
 
-1. In der App `manifest.json` und PR-Text generieren.
-2. Zielordner gemäß Manifest anlegen (z. B. `submissions/YYYY-MM-DD_gruppenname/`).
-3. Video + `manifest.json` + optionale Skriptdatei ablegen.
-4. Pull Request mit `PR_TEMPLATE.md` eröffnen.
+1. Lehrperson stellt einen Dropbox-Abgabeordner-Link bereit.
+2. Schüler*innen laden Film dort hoch (mit standardisiertem Dateinamen).
+3. App erzeugt:
+   - `abgabe_metadaten.json`
+   - `abgabeprotokoll.md`
+4. Diese Metadaten gehen an die Lehrperson/LMS (E-Mail, Teams, Moodle, etc.).
 
 ## Quellenbasis des Inhalts
 
