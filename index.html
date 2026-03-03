@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Berliner Salonlabor 1815-1848</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="assets/videos/knoblauchhaus.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-layer"></div>
+
+    <header class="hero">
+      <p class="eyebrow">Projektumgebung | Vormärz, Biedermeier, Salonkultur</p>
+      <h1>Berliner Salonlabor</h1>
+      <p class="lead">
+        Interaktive Lernumgebung in zwei Teilen: erst Inhaltssicherung zu Religion,
+        Philosophie und Politik, dann kreative Reinszenierung als eigener
+        Kostümfilm mit GitHub-Upload.
+      </p>
+      <div class="hero-actions">
+        <a href="#teil1" class="btn">Teil 1 starten</a>
+        <a href="#teil2" class="btn ghost">Teil 2 planen</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel" id="teil1">
+        <h2>Teil 1: Inhaltssicherung</h2>
+        <p>
+          Grundlage: deine Jenny-Papers plus die Transkripte zu Knoblauchhaus und
+          Biedermeier/Revolution. Nutzt die Faktenkarten als Fundament für
+          argumentatives Sprechen im Salon.
+        </p>
+
+        <div class="theme-switch" id="themeSwitch" aria-label="Themenauswahl"></div>
+        <article class="theme-panel" id="themePanel"></article>
+      </section>
+
+      <section class="panel" id="ressourcen">
+        <h2>Pflichtressourcen</h2>
+        <div class="resource-grid">
+          <article class="resource-card">
+            <h3>Video 1: Knoblauchhaus</h3>
+            <p>
+              Fokus auf Wohnkultur, Raumaufteilung, Familienalltag, Salonpraxis
+              und Biedermeier-Materialität.
+            </p>
+            <div class="resource-actions">
+              <a
+                href="https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&dl=0"
+                target="_blank"
+                rel="noreferrer"
+                class="btn small"
+                >Dropbox-Link</a
+              >
+              <a
+                href="https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&raw=1"
+                target="_blank"
+                rel="noreferrer"
+                class="btn ghost small"
+                >Direkt (raw=1)</a
+              >
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <h3>Video 2: Wir Deutschen Folge 11</h3>
+            <p>
+              Fokus auf Vormärz-Kontext, Zensur, Revolution 1848,
+              Nationalstaatsfrage und gesellschaftliche Bruchlinien.
+            </p>
+            <div class="resource-actions">
+              <a
+                href="https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&dl=0"
+                target="_blank"
+                rel="noreferrer"
+                class="btn small"
+                >Dropbox-Link</a
+              >
+              <a
+                href="https://www.dropbox.com/scl/fi/a6upq17nx4bjlg8vnd7x7/Wir-Deutschen-Folge-11-Biedermeier-und-Revolution-1813-1848.mp4?rlkey=kr8nc6vjf8yn1sgzzeqgykdn6&st=czuco9oe&raw=1"
+                target="_blank"
+                rel="noreferrer"
+                class="btn ghost small"
+                >Direkt (raw=1)</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="salonstudio">
+        <h2>Salonstudio: Diskussion inszenieren</h2>
+        <div class="studio-grid">
+          <article class="studio-card">
+            <h3>Raumskizze (spielbar im Klassenzimmer)</h3>
+            <div class="floorplan" aria-label="Raumskizze Berliner Salon">
+              <span class="label top">Fenster</span>
+              <span class="label left">Tür</span>
+              <div class="stage">Salonfläche / Gesprächszentrum</div>
+            </div>
+            <p>
+              Nutzt die Salonfläche als Halbrund: Gastgeberin mittig, zwei
+              Gegenpositionen links/rechts, Beobachter*innen am Rand.
+            </p>
+          </article>
+
+          <article class="studio-card">
+            <h3>Rollenkarten automatisch ziehen</h3>
+            <label for="groupSize">Gruppengröße</label>
+            <input id="groupSize" type="number" min="3" max="9" value="5" />
+            <button class="btn small" id="assignRolesBtn">Rollen verteilen</button>
+            <ul id="roleList" class="role-list"></ul>
+          </article>
+
+          <article class="studio-card">
+            <h3>Diskussions-Timer</h3>
+            <label for="timerMinutes">Minuten pro Runde</label>
+            <input id="timerMinutes" type="number" min="1" max="30" value="8" />
+            <div class="timer-value" id="timerDisplay">08:00</div>
+            <div class="resource-actions">
+              <button class="btn small" id="startTimerBtn">Start</button>
+              <button class="btn ghost small" id="pauseTimerBtn">Pause</button>
+              <button class="btn ghost small" id="resetTimerBtn">Reset</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="teil2">
+        <h2>Teil 2: Kreative Reinszenierung (Kostümfilm)</h2>
+        <p>
+          Zielprodukt: 4-8 Minuten Salonfilm mit historisch plausibler Debatte,
+          klarer Rollenführung und dokumentierter Quellenbasis.
+        </p>
+
+        <article class="checklist-box">
+          <h3>Produktionscheckliste</h3>
+          <div class="progress-wrap">
+            <div class="progress-bar" id="checklistProgress"></div>
+          </div>
+          <ul class="checklist" id="productionChecklist">
+            <li><label><input type="checkbox" data-check-id="sources" /> Quellen gesichtet und 6 Kernthesen ausgewählt</label></li>
+            <li><label><input type="checkbox" data-check-id="roles" /> Rollen verteilt und Zielkonflikt fixiert</label></li>
+            <li><label><input type="checkbox" data-check-id="script" /> Drehbuchfassung 1 mit Originalzitaten erstellt</label></li>
+            <li><label><input type="checkbox" data-check-id="costume" /> Kostüm- und Requisitenliste vorbereitet</label></li>
+            <li><label><input type="checkbox" data-check-id="shoot" /> Drehtag mit Shotlist geplant</label></li>
+            <li><label><input type="checkbox" data-check-id="edit" /> Rohschnitt, Untertitel und Quellenhinweise ergänzt</label></li>
+          </ul>
+        </article>
+
+        <article class="storyboard-box">
+          <h3>Storyboard-Builder</h3>
+          <form id="sceneForm" class="scene-form">
+            <input id="sceneTitle" type="text" placeholder="Szene (z. B. Eröffnungssalon)" required />
+            <input id="sceneGoal" type="text" placeholder="Szenenziel" required />
+            <input id="sceneQuote" type="text" placeholder="Schlüsselzitat" required />
+            <input id="sceneCamera" type="text" placeholder="Kameraidee" required />
+            <button class="btn small" type="submit">Szene hinzufügen</button>
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Szene</th>
+                <th>Ziel</th>
+                <th>Zitat</th>
+                <th>Kamera</th>
+              </tr>
+            </thead>
+            <tbody id="sceneTableBody"></tbody>
+          </table>
+          <button class="btn ghost small" id="exportStoryboardBtn" type="button">
+            Storyboard als Markdown exportieren
+          </button>
+        </article>
+      </section>
+
+      <section class="panel" id="upload">
+        <h2>Upload-Workflow für GitHub</h2>
+        <p>
+          Die App lädt nicht direkt hoch, sondern erzeugt ein
+          <code>manifest.json</code> und PR-Beschreibung. Das Video legt ihr dann
+          manuell in <code>submissions/</code> ab.
+        </p>
+
+        <form id="uploadForm" class="upload-form">
+          <input id="className" type="text" placeholder="Klasse (z. B. S3d)" required />
+          <input id="groupName" type="text" placeholder="Gruppenname" required />
+          <input id="topicName" type="text" placeholder="Debattenfokus" required />
+          <input id="videoFile" type="text" placeholder="Videodatei (z. B. salonfilm.mp4)" required />
+          <input id="members" type="text" placeholder="Mitglieder (Komma-getrennt)" required />
+          <input id="duration" type="text" placeholder="Länge (z. B. 06:40)" required />
+          <button class="btn small" type="submit">Manifest + PR-Text erzeugen</button>
+        </form>
+
+        <pre id="uploadPreview" class="upload-preview"></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Quellenbasis im Repo: Jenny-Dokumente I-III und Dok 4, Transkript
+        Knoblauchhaus, Transkript Biedermeier, Berliner Salon-PDF (Inhaltsstruktur).
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
