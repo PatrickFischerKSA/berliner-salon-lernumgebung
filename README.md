@@ -24,9 +24,11 @@ Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 - Fragenlabor mit drei Themenfeldern (Religion, Philosophie, Politik).
 - Anspruchsvolle Freitextfragen mit Sofortfeedback, Musterlösungen und Export.
 - Ausgebautes Salonstudio: Raumskizze, Rollenverteilung, Timer, Moderationsfahrplan.
-- Produktionspipeline mit Checkliste, Kernthesen-Protokoll und Storyboard-Builder.
+- Produktionspipeline mit verbindlichen Pflichtfeldern:
+  - exakt `12` Kernthesen
+  - Rollen-/Zielkonfliktmatrix (für alle Mitglieder)
+  - Shotlist mit mindestens `8` Shots
 - Verlinkung zum Drehbuchgenerator:
-  - `../drehbuch-generator.html`
   - `../drehbuch-generator/index.html`
 - Pflichtmodul `Kommentar zum Schaffensprozess` mit Export als Markdown.
 

@@ -229,10 +229,14 @@ const defaultSubmissionDropboxLink =
   "https://www.dropbox.com/scl/fo/igd1xncgppgl836hg9n2j/AKy-98Vp0e1A3WAJIhUd-MU?rlkey=0lk0zx8gqj6369s5opkt6fimg&st=i699pgtf&dl=0";
 
 const backgroundClip = toDropboxStream(dropboxLinks.knoblauchhaus);
+const REQUIRED_THESES_COUNT = 12;
+const MINIMUM_SHOTS_COUNT = 8;
 
 const checklistKey = "salon_checklist_state_v2";
 const scenes = [];
 const theses = [];
+const rolePlans = [];
+const shotPlans = [];
 let activeTheme = "religion";
 let timerInterval = null;
 let timerSeconds = 8 * 60;
@@ -633,7 +637,12 @@ function loadChecklist() {
 
   checks.forEach((box) => {
     box.checked = Boolean(state[box.dataset.checkId]);
+    if (["theses", "roles", "shoot"].includes(box.dataset.checkId)) {
+      box.disabled = true;
+      box.title = "Wird automatisch aus den Pflichtfeldern gesetzt.";
+    }
     box.addEventListener("change", () => {
+      if (box.disabled) return;
       state[box.dataset.checkId] = box.checked;
       localStorage.setItem(checklistKey, JSON.stringify(state));
       updateChecklistProgress();
@@ -648,6 +657,64 @@ function updateChecklistProgress() {
   const done = checks.filter((box) => box.checked).length;
   const percent = (done / checks.length) * 100;
   document.getElementById("checklistProgress").style.width = `${percent}%`;
+}
+
+function setChecklistItem(checkId, checked) {
+  const box = document.querySelector(`#productionChecklist input[data-check-id='${checkId}']`);
+  if (!box) return;
+  box.checked = checked;
+  const saved = localStorage.getItem(checklistKey);
+  const state = saved ? JSON.parse(saved) : {};
+  state[checkId] = checked;
+  localStorage.setItem(checklistKey, JSON.stringify(state));
+  updateChecklistProgress();
+}
+
+function setRequirementLabel(elementId, isOk, okText, missingText) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+  element.textContent = isOk ? okText : missingText;
+  element.classList.toggle("requirement-ok", isOk);
+  element.classList.toggle("requirement-missing", !isOk);
+}
+
+function getMemberCountFromInput() {
+  const input = document.getElementById("members");
+  if (!input) return 0;
+  return input.value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean).length;
+}
+
+function updateProductionRequirements() {
+  const thesisOk = theses.length === REQUIRED_THESES_COUNT;
+  const requiredMembers = getMemberCountFromInput();
+  const rolesOk = requiredMembers > 0 ? rolePlans.length >= requiredMembers : rolePlans.length > 0;
+  const shotsOk = shotPlans.length >= MINIMUM_SHOTS_COUNT;
+
+  setRequirementLabel(
+    "thesisRequirement",
+    thesisOk,
+    `Punkt 2 erfüllt: ${theses.length}/${REQUIRED_THESES_COUNT} Kernthesen vollständig.`,
+    `Pflicht für Punkt 2: genau ${REQUIRED_THESES_COUNT} Kernthesen eintragen (aktuell ${theses.length}/${REQUIRED_THESES_COUNT}).`
+  );
+  setRequirementLabel(
+    "rolesRequirement",
+    rolesOk,
+    `Punkt 3 erfüllt: ${rolePlans.length}/${requiredMembers || rolePlans.length} Rollenzeilen erfasst.`,
+    `Pflicht für Punkt 3: ${requiredMembers > 0 ? `${requiredMembers}` : "alle"} Gruppenmitglieder in der Rollen-/Konfliktmatrix eintragen (aktuell ${rolePlans.length}).`
+  );
+  setRequirementLabel(
+    "shotsRequirement",
+    shotsOk,
+    `Punkt 5 erfüllt: ${shotPlans.length} Shots dokumentiert.`,
+    `Pflicht für Punkt 5: mindestens ${MINIMUM_SHOTS_COUNT} Shots inkl. Ton und Dauer eintragen (aktuell ${shotPlans.length}).`
+  );
+
+  setChecklistItem("theses", thesisOk);
+  setChecklistItem("roles", rolesOk);
+  setChecklistItem("shoot", shotsOk);
 }
 
 function renderScenes() {
@@ -680,15 +747,58 @@ function renderTheses() {
     `;
     body.appendChild(tr);
   });
+  updateProductionRequirements();
+}
+
+function renderRolePlans() {
+  const body = document.getElementById("rolePlanTableBody");
+  if (!body) return;
+  body.innerHTML = "";
+  rolePlans.forEach((item) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(item.person)}</td>
+      <td>${escapeHtml(item.role)}</td>
+      <td>${escapeHtml(item.goal)}</td>
+      <td>${escapeHtml(item.conflict)}</td>
+      <td>${escapeHtml(item.keyLine)}</td>
+    `;
+    body.appendChild(tr);
+  });
+  updateProductionRequirements();
+}
+
+function renderShotPlans() {
+  const body = document.getElementById("shotTableBody");
+  if (!body) return;
+  body.innerHTML = "";
+  shotPlans.forEach((item) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(item.number)}</td>
+      <td>${escapeHtml(item.location)}</td>
+      <td>${escapeHtml(item.type)}</td>
+      <td>${escapeHtml(item.action)}</td>
+      <td>${escapeHtml(item.audio)}</td>
+      <td>${escapeHtml(item.duration)}</td>
+    `;
+    body.appendChild(tr);
+  });
+  updateProductionRequirements();
 }
 
 function setupThesisForm() {
   const form = document.getElementById("thesisForm");
   const exportBtn = document.getElementById("exportThesesBtn");
-  if (!form || !exportBtn) return;
+  const clearBtn = document.getElementById("clearThesesBtn");
+  if (!form || !exportBtn || !clearBtn) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (theses.length >= REQUIRED_THESES_COUNT) {
+      updateProductionRequirements();
+      return;
+    }
     theses.push({
       topic: document.getElementById("thesisTopic").value.trim(),
       claim: document.getElementById("thesisClaim").value.trim(),
@@ -702,7 +812,7 @@ function setupThesisForm() {
 
   exportBtn.addEventListener("click", () => {
     if (theses.length === 0) return;
-    const lines = ["# Kernthesen-Protokoll Salonfilm", ""];
+    const lines = ["# Kernthesen-Protokoll Salonfilm", `- Gesamtzahl: ${theses.length}/${REQUIRED_THESES_COUNT}`, ""];
     theses.forEach((item, index) => {
       lines.push(`## Kernthese ${index + 1}`);
       lines.push(`- Thema: ${item.topic}`);
@@ -713,6 +823,93 @@ function setupThesisForm() {
       lines.push("");
     });
     downloadFile("kernthesen_protokoll.md", lines.join("\n"), "text/markdown");
+  });
+
+  clearBtn.addEventListener("click", () => {
+    theses.length = 0;
+    renderTheses();
+  });
+}
+
+function setupRolePlanForm() {
+  const form = document.getElementById("rolePlanForm");
+  const exportBtn = document.getElementById("exportRolesBtn");
+  const clearBtn = document.getElementById("clearRolesBtn");
+  if (!form || !exportBtn || !clearBtn) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    rolePlans.push({
+      person: document.getElementById("rolePerson").value.trim(),
+      role: document.getElementById("roleCard").value.trim(),
+      goal: document.getElementById("roleGoal").value.trim(),
+      conflict: document.getElementById("roleConflict").value.trim(),
+      keyLine: document.getElementById("roleKeyLine").value.trim()
+    });
+    form.reset();
+    renderRolePlans();
+  });
+
+  exportBtn.addEventListener("click", () => {
+    if (rolePlans.length === 0) return;
+    const lines = ["# Rollen- und Zielkonfliktmatrix", `- Zeilen: ${rolePlans.length}`, ""];
+    rolePlans.forEach((item, index) => {
+      lines.push(`## Rolle ${index + 1}`);
+      lines.push(`- Mitglied: ${item.person}`);
+      lines.push(`- Rolle: ${item.role}`);
+      lines.push(`- Ziel: ${item.goal}`);
+      lines.push(`- Konflikt: ${item.conflict}`);
+      lines.push(`- Schlüsselsatz: ${item.keyLine}`);
+      lines.push("");
+    });
+    downloadFile("rollenmatrix_salonfilm.md", lines.join("\n"), "text/markdown");
+  });
+
+  clearBtn.addEventListener("click", () => {
+    rolePlans.length = 0;
+    renderRolePlans();
+  });
+}
+
+function setupShotForm() {
+  const form = document.getElementById("shotForm");
+  const exportBtn = document.getElementById("exportShotsBtn");
+  const clearBtn = document.getElementById("clearShotsBtn");
+  if (!form || !exportBtn || !clearBtn) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    shotPlans.push({
+      number: document.getElementById("shotNumber").value.trim(),
+      location: document.getElementById("shotLocation").value.trim(),
+      type: document.getElementById("shotType").value.trim(),
+      action: document.getElementById("shotAction").value.trim(),
+      audio: document.getElementById("shotAudio").value.trim(),
+      duration: document.getElementById("shotDuration").value.trim()
+    });
+    form.reset();
+    renderShotPlans();
+  });
+
+  exportBtn.addEventListener("click", () => {
+    if (shotPlans.length === 0) return;
+    const lines = ["# Shotlist Salonfilm", `- Shots: ${shotPlans.length}`, ""];
+    shotPlans.forEach((item, index) => {
+      lines.push(`## Shot ${index + 1}`);
+      lines.push(`- Nr.: ${item.number}`);
+      lines.push(`- Ort: ${item.location}`);
+      lines.push(`- Einstellung: ${item.type}`);
+      lines.push(`- Aktion/Dialog: ${item.action}`);
+      lines.push(`- Ton: ${item.audio}`);
+      lines.push(`- Dauer: ${item.duration}`);
+      lines.push("");
+    });
+    downloadFile("shotlist_salonfilm.md", lines.join("\n"), "text/markdown");
+  });
+
+  clearBtn.addEventListener("click", () => {
+    shotPlans.length = 0;
+    renderShotPlans();
   });
 }
 
@@ -791,6 +988,7 @@ function setupSubmissionForm() {
   const copyTextBtn = document.getElementById("copySubmissionTextBtn");
   const linkInput = document.getElementById("dropboxRequestLink");
   const teacherEmailInput = document.getElementById("teacherEmail");
+  const membersInput = document.getElementById("members");
 
   if (!form || !preview) return;
 
@@ -803,6 +1001,12 @@ function setupSubmissionForm() {
   linkInput.addEventListener("change", () => {
     localStorage.setItem(storageKey, linkInput.value.trim());
   });
+
+  if (membersInput) {
+    membersInput.addEventListener("input", () => {
+      updateProductionRequirements();
+    });
+  }
 
   openDropboxBtn.addEventListener("click", () => {
     const url = linkInput.value.trim();
@@ -839,6 +1043,32 @@ function setupSubmissionForm() {
     const dropboxRequestLink = linkInput.value.trim();
     const uploadedVideoLink = document.getElementById("uploadedVideoLink").value.trim();
     const teacherEmail = teacherEmailInput.value.trim();
+    const memberCount = members.length;
+
+    if (theses.length !== REQUIRED_THESES_COUNT) {
+      preview.textContent = `Abgabe gesperrt: Punkt 2 ist unvollständig.\nErfasst: ${theses.length}/${REQUIRED_THESES_COUNT} Kernthesen.`;
+      return;
+    }
+
+    if (memberCount === 0) {
+      preview.textContent = "Abgabe gesperrt: Bitte mindestens ein Gruppenmitglied eintragen.";
+      return;
+    }
+
+    if (rolePlans.length < memberCount) {
+      preview.textContent = `Abgabe gesperrt: Punkt 3 ist unvollständig.\nRollenzeilen: ${rolePlans.length}, Gruppenmitglieder: ${memberCount}.`;
+      return;
+    }
+
+    if (shotPlans.length < MINIMUM_SHOTS_COUNT) {
+      preview.textContent = `Abgabe gesperrt: Punkt 5 ist unvollständig.\nShotlist: ${shotPlans.length}/${MINIMUM_SHOTS_COUNT}.`;
+      return;
+    }
+
+    if (!latestProcessComment.trim()) {
+      preview.textContent = "Abgabe gesperrt: Bitte zuerst den Produktkommentar erzeugen (Schaffensprozess).";
+      return;
+    }
 
     const isoDate = new Date().toISOString().slice(0, 10);
     const submissionId = `${isoDate}_${slugify(className)}_${slugify(groupName)}`;
@@ -857,10 +1087,16 @@ function setupSubmissionForm() {
       dropbox_submission_link: dropboxRequestLink,
       uploaded_video_link: uploadedVideoLink || null,
       teacher_email: teacherEmail || null,
+      theses_count: theses.length,
+      theses,
+      role_plan_count: rolePlans.length,
+      role_plans: rolePlans,
+      shot_count: shotPlans.length,
+      shot_plans: shotPlans,
       generated_at: new Date().toISOString()
     };
 
-    const submissionTicket = `# Abgabeprotokoll Salonfilm\n\n- Abgabe-ID: ${submissionId}\n- Klasse: ${className}\n- Gruppe: ${groupName}\n- Fokus: ${topicName}\n- Dauer: ${duration}\n- Mitglieder: ${members.join(", ")}\n- Gewählte Videodatei: ${videoFile}\n- Empfohlener Dateiname: ${recommendedFilename}\n- Dropbox-Abgabeordner: ${dropboxRequestLink}\n- Upload-Link Film: ${uploadedVideoLink || "(noch nicht eingetragen)"}\n\n## Ablauf\n1. Film in den Dropbox-Abgabeordner hochladen.\n2. Optional den öffentlichen Upload-Link eintragen.\n3. Metadatenpaket an Lehrperson senden.\n\n## Quellenbasis\n- Jenny-Papers (Originaltexte)\n- Transkript Knoblauchhaus\n- Transkript Biedermeier/1848\n`;
+    const submissionTicket = `# Abgabeprotokoll Salonfilm\n\n- Abgabe-ID: ${submissionId}\n- Klasse: ${className}\n- Gruppe: ${groupName}\n- Fokus: ${topicName}\n- Dauer: ${duration}\n- Mitglieder: ${members.join(", ")}\n- Gewählte Videodatei: ${videoFile}\n- Empfohlener Dateiname: ${recommendedFilename}\n- Dropbox-Abgabeordner: ${dropboxRequestLink}\n- Upload-Link Film: ${uploadedVideoLink || "(noch nicht eingetragen)"}\n- Kernthesen: ${theses.length}/${REQUIRED_THESES_COUNT}\n- Rollenzeilen: ${rolePlans.length}\n- Shots: ${shotPlans.length}\n\n## Ablauf\n1. Film in den Dropbox-Abgabeordner hochladen.\n2. Optional den öffentlichen Upload-Link eintragen.\n3. Metadatenpaket an Lehrperson senden.\n\n## Quellenbasis\n- Jenny-Papers (Originaltexte)\n- Transkript Knoblauchhaus\n- Transkript Biedermeier/1848\n`;
 
     downloadFile("abgabe_metadaten.json", JSON.stringify(submissionManifest, null, 2), "application/json");
     downloadFile("abgabeprotokoll.md", submissionTicket, "text/markdown");
@@ -876,6 +1112,9 @@ function setupSubmissionForm() {
       `Empfohlener Dateiname: ${recommendedFilename}`,
       `Dropbox-Abgabeordner: ${dropboxRequestLink}`,
       `Upload-Link Film: ${uploadedVideoLink || "(noch offen)"}`,
+      `Kernthesen: ${theses.length}/${REQUIRED_THESES_COUNT}`,
+      `Rollenzeilen: ${rolePlans.length}`,
+      `Shotlist: ${shotPlans.length}/${MINIMUM_SHOTS_COUNT}`,
       teacherEmail ? `Lehrperson E-Mail: ${teacherEmail}` : ""
     ].filter(Boolean);
 
@@ -946,10 +1185,13 @@ function init() {
 
   loadChecklist();
   setupThesisForm();
+  setupRolePlanForm();
+  setupShotForm();
   setupSceneForm();
   setupProcessForm();
   setupSubmissionForm();
   setupBackgroundVideo();
+  updateProductionRequirements();
   updateTimerDisplay();
 }
 

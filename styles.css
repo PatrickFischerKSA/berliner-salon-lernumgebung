@@ -206,6 +206,16 @@ main {
   margin: 0.45rem 0 0;
 }
 
+.requirement-ok {
+  color: #1f6a2c;
+  font-weight: 700;
+}
+
+.requirement-missing {
+  color: #8a2b1f;
+  font-weight: 700;
+}
+
 .open-questions-wrap {
   display: grid;
   gap: 0.7rem;

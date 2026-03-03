@@ -227,10 +227,10 @@
           </div>
           <ul class="checklist" id="productionChecklist">
             <li><label><input type="checkbox" data-check-id="sources" /> 1. Vier Pflichtfilme gesichtet und zentrale Beobachtungen protokolliert</label></li>
-            <li><label><input type="checkbox" data-check-id="theses" /> 2. Mindestens sechs Kernthesen formuliert und begründet</label></li>
-            <li><label><input type="checkbox" data-check-id="roles" /> 3. Rollen verteilt und Zielkonflikt pro Figur festgelegt</label></li>
+            <li><label><input type="checkbox" data-check-id="theses" /> 2. Genau 12 Kernthesen vollständig eingetragen (Pflichtfeld)</label></li>
+            <li><label><input type="checkbox" data-check-id="roles" /> 3. Rollen-/Zielkonfliktmatrix für alle Gruppenmitglieder ausgefüllt (Pflichtfeld)</label></li>
             <li><label><input type="checkbox" data-check-id="script" /> 4. Drehbuch mit Szenenfolge und Dialogkern erstellt</label></li>
-            <li><label><input type="checkbox" data-check-id="shoot" /> 5. Dreh mit Shotlist, Toncheck und Zeitplan durchgeführt</label></li>
+            <li><label><input type="checkbox" data-check-id="shoot" /> 5. Shotlist mit mindestens 8 Shots + Toncheck + Zeitplan vollständig eingetragen (Pflichtfeld)</label></li>
             <li><label><input type="checkbox" data-check-id="edit" /> 6. Schnitt + Untertitel + Quellenhinweise + Reflexion finalisiert</label></li>
           </ul>
         </article>
@@ -238,6 +238,9 @@
         <div class="production-grid">
           <article class="storyboard-box">
             <h3>Kernthesen-Protokoll</h3>
+            <p class="small-note" id="thesisRequirement">
+              Pflicht für Punkt 2: genau 12 Kernthesen eintragen (Abgabe ist sonst gesperrt).
+            </p>
             <form id="thesisForm" class="scene-form">
               <input id="thesisTopic" type="text" placeholder="Thema (Religion/Philosophie/Politik)" required />
               <input id="thesisClaim" type="text" placeholder="Kernthese" required />
@@ -258,9 +261,10 @@
               </thead>
               <tbody id="thesisTableBody"></tbody>
             </table>
-            <button class="btn ghost small" id="exportThesesBtn" type="button">
-              Kernthesen als Markdown exportieren
-            </button>
+            <div class="resource-actions">
+              <button class="btn ghost small" id="exportThesesBtn" type="button">Kernthesen als Markdown exportieren</button>
+              <button class="btn ghost small" id="clearThesesBtn" type="button">Kernthesen zurücksetzen</button>
+            </div>
           </article>
 
           <article class="storyboard-box">
@@ -270,12 +274,7 @@
               4) Rollenrhythmus testen, 5) Fassung für den Dreh freigeben.
             </p>
             <div class="resource-actions">
-              <a class="btn small" href="../drehbuch-generator.html" target="_blank" rel="noreferrer"
-                >Drehbuchgenerator öffnen</a
-              >
-              <a class="btn ghost small" href="../drehbuch-generator/index.html" target="_blank" rel="noreferrer"
-                >Alternative Generator-Version</a
-              >
+              <a class="btn small" href="../drehbuch-generator/index.html" target="_blank" rel="noreferrer">Drehbuchgenerator öffnen</a>
             </div>
             <p class="small-note">
               Wenn kein Generator erreichbar ist: Storyboard unten manuell nutzen und
@@ -304,6 +303,72 @@
             <button class="btn ghost small" id="exportStoryboardBtn" type="button">
               Storyboard als Markdown exportieren
             </button>
+          </article>
+        </div>
+
+        <div class="production-grid">
+          <article class="storyboard-box">
+            <h3>Rollen- und Zielkonfliktmatrix</h3>
+            <p class="small-note" id="rolesRequirement">
+              Pflicht für Punkt 3: Für jedes Gruppenmitglied eine Zeile eintragen.
+            </p>
+            <form id="rolePlanForm" class="scene-form">
+              <input id="rolePerson" type="text" placeholder="Name / Mitglied" required />
+              <input id="roleCard" type="text" placeholder="Rolle im Salon" required />
+              <input id="roleGoal" type="text" placeholder="Ziel der Figur" required />
+              <input id="roleConflict" type="text" placeholder="Konflikt / Widerstand" required />
+              <input id="roleKeyLine" type="text" placeholder="Schlüsselsatz der Figur" required />
+              <button class="btn small" type="submit">Rollenzeile hinzufügen</button>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mitglied</th>
+                  <th>Rolle</th>
+                  <th>Ziel</th>
+                  <th>Konflikt</th>
+                  <th>Schlüsselsatz</th>
+                </tr>
+              </thead>
+              <tbody id="rolePlanTableBody"></tbody>
+            </table>
+            <div class="resource-actions">
+              <button class="btn ghost small" id="exportRolesBtn" type="button">Rollenmatrix exportieren</button>
+              <button class="btn ghost small" id="clearRolesBtn" type="button">Rollenmatrix zurücksetzen</button>
+            </div>
+          </article>
+
+          <article class="storyboard-box">
+            <h3>Shotlist und Drehplanung</h3>
+            <p class="small-note" id="shotsRequirement">
+              Pflicht für Punkt 5: mindestens 8 Shots inkl. Ton und Dauer eintragen.
+            </p>
+            <form id="shotForm" class="scene-form">
+              <input id="shotNumber" type="text" placeholder="Shot-Nr. (z. B. 01)" required />
+              <input id="shotLocation" type="text" placeholder="Ort / Raum" required />
+              <input id="shotType" type="text" placeholder="Einstellung (Totale, Halbnah ...)" required />
+              <input id="shotAction" type="text" placeholder="Aktion / Dialogkern" required />
+              <input id="shotAudio" type="text" placeholder="Ton (Atmo, Dialog, Musik ...)" required />
+              <input id="shotDuration" type="text" placeholder="Dauer (z. B. 00:25)" required />
+              <button class="btn small" type="submit">Shot hinzufügen</button>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nr.</th>
+                  <th>Ort</th>
+                  <th>Einstellung</th>
+                  <th>Aktion</th>
+                  <th>Ton</th>
+                  <th>Dauer</th>
+                </tr>
+              </thead>
+              <tbody id="shotTableBody"></tbody>
+            </table>
+            <div class="resource-actions">
+              <button class="btn ghost small" id="exportShotsBtn" type="button">Shotlist exportieren</button>
+              <button class="btn ghost small" id="clearShotsBtn" type="button">Shotlist zurücksetzen</button>
+            </div>
           </article>
         </div>
 
