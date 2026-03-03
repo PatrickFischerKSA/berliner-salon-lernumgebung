@@ -1,6 +1,6 @@
-# Video-Assets
+# Video-Hinweis
 
-Bitte hier manuell ablegen:
+Bitte die Datei direkt im Root des Repos ablegen:
 
 - `knoblauchhaus.mp4` (Trailer, läuft im Hintergrund geblurt)
 

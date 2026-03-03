@@ -9,7 +9,7 @@ Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 
 1. Repo klonen.
 2. Trailer-Datei selbst hinzufügen (wegen Korruptionsrisiko bei Integrationen):
-   - `assets/videos/knoblauchhaus.mp4`
+   - `knoblauchhaus.mp4` (direkt im Root)
 3. `index.html` im Browser öffnen.
 
 ## Pflichtressourcen (integriert als Links)
@@ -32,9 +32,7 @@ berliner-salon-lernumgebung/
 ├── rollen-und-inszenierung.md
 ├── bewertungsraster.md
 ├── quellenbasis.md
-├── assets/
-│   └── videos/
-│       └── knoblauchhaus.mp4 (manuell hinzufügen)
+└── knoblauchhaus.mp4 (manuell hinzufügen, Root)
 ```
 
 ## Was die Lernumgebung abdeckt
