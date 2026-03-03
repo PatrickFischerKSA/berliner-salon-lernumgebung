@@ -7,74 +7,50 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <video class="bg-video" id="bgVideo" autoplay muted loop playsinline crossorigin="anonymous"></video>
+    <video class="bg-video" id="bgVideo" autoplay muted loop playsinline preload="auto"></video>
     <div class="bg-layer"></div>
 
     <header class="hero">
       <p class="eyebrow">Projektumgebung | Vormärz, Biedermeier, Salonkultur</p>
       <h1>Berliner Salonlabor</h1>
       <p class="lead">
-        Interaktive Lernumgebung in zwei Teilen: erst Inhaltssicherung zu Religion,
-        Philosophie und Politik, dann kreative Reinszenierung als eigener
-        Kostümfilm mit Abgabe ohne GitHub-Zugang.
+        Zwei klar strukturierte Phasen: zuerst Pflichtfilme analysieren und
+        differenzierte Freitextfragen lösen, danach eine eigene Salon-Diskussion
+        inszenieren, drehen, schneiden und dokumentiert abgeben.
       </p>
 
-      <article class="bg-control-box">
-        <h3>Hintergrundclip (Dropbox)</h3>
-        <div class="bg-controls">
-          <label for="bgVideoSelect">Clip</label>
-          <select id="bgVideoSelect"></select>
-
-          <label for="bgBlurRange">Blur</label>
-          <input id="bgBlurRange" type="range" min="0" max="14" step="1" value="5" />
-
-          <label for="bgBrightnessRange">Helligkeit</label>
-          <input id="bgBrightnessRange" type="range" min="45" max="100" step="1" value="72" />
+      <article class="hero-film">
+        <h3>Geblurte Hintergrundatmosphäre: Knoblauchhaus-Trailer</h3>
+        <p>
+          Wenn der Browser Autoplay blockiert, einmal auf den Start-Button klicken.
+        </p>
+        <div class="resource-actions">
+          <button class="btn small" id="bgStartBtn" type="button">Hintergrundvideo starten</button>
+          <a
+            class="btn ghost small"
+            href="https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&raw=1"
+            target="_blank"
+            rel="noreferrer"
+            >Film direkt testen</a
+          >
         </div>
-        <p class="bg-status" id="bgVideoStatus">Video wird geladen...</p>
+        <p class="bg-status" id="bgVideoStatus">Hintergrundvideo wird vorbereitet...</p>
       </article>
 
       <div class="hero-actions">
-        <a href="#teil1" class="btn">Teil 1 starten</a>
-        <a href="#teil2" class="btn ghost">Teil 2 planen</a>
+        <a href="#ressourcen" class="btn">Zu den Filmen</a>
+        <a href="#teil1" class="btn ghost">Zu den Fragen</a>
       </div>
     </header>
 
     <main>
-      <section class="panel" id="teil1">
-        <h2>Teil 1: Inhaltssicherung</h2>
-        <p>
-          Grundlage: die vollständigen Jenny-Papers plus die beiden Transkripte.
-          Keine MC-Tests: differenzierte Freitextfragen mit strenger
-          Sofortkorrektur, Musterlösungen und Export.
-        </p>
-
-        <div class="theme-switch" id="themeSwitch" aria-label="Themenauswahl"></div>
-        <article class="theme-panel" id="themePanel"></article>
-      </section>
-
-      <section class="panel" id="originalquellen">
-        <h2>Originalquellen (voll sichtbar)</h2>
-        <p>
-          Vollständige extrahierte Quelltexte direkt in der App. Suchbar,
-          exportierbar, zitierbar.
-        </p>
-
-        <div class="source-toolbar">
-          <label for="paperSelect">Dokument</label>
-          <select id="paperSelect"></select>
-          <input id="paperSearchInput" type="text" placeholder="Begriff suchen (z. B. Emanzipation)" />
-          <button class="btn small" id="paperSearchBtn" type="button">Suche</button>
-          <button class="btn ghost small" id="paperExportBtn" type="button">Aktuelles Original exportieren</button>
-        </div>
-
-        <p class="paper-meta" id="paperMeta"></p>
-        <ul class="paper-results" id="paperSearchResults"></ul>
-        <pre class="paper-viewer" id="paperViewer"></pre>
-      </section>
-
       <section class="panel" id="ressourcen">
-        <h2>Pflichtressourcen</h2>
+        <h2>Pflichtfilme</h2>
+        <p>
+          Reihenfolge für alle Gruppen: erst schauen, dann Kernargumente notieren,
+          danach mit den Freitextfragen arbeiten.
+        </p>
+
         <div class="resource-grid">
           <article class="resource-card">
             <h3>Video 1: Knoblauchhaus</h3>
@@ -92,7 +68,7 @@
                 target="_blank"
                 rel="noreferrer"
                 class="btn ghost small"
-                >Direkt (raw=1)</a
+                >Direkt (raw)</a
               >
             </div>
           </article>
@@ -113,14 +89,14 @@
                 target="_blank"
                 rel="noreferrer"
                 class="btn ghost small"
-                >Direkt (raw=1)</a
+                >Direkt (raw)</a
               >
             </div>
           </article>
 
           <article class="resource-card">
             <h3>Video 3: Roman einer ungelösten Epoche</h3>
-            <p>Lehrfilm für die diskursive Einbettung von Jenny im Vormärz.</p>
+            <p>Einordnung von Jenny zwischen Religion, Philosophie und Politik.</p>
             <div class="resource-actions">
               <a
                 href="https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0"
@@ -134,14 +110,14 @@
                 target="_blank"
                 rel="noreferrer"
                 class="btn ghost small"
-                >Direkt (raw=1)</a
+                >Direkt (raw)</a
               >
             </div>
           </article>
 
           <article class="resource-card">
             <h3>Video 4: Berlins Salons: Macht und Geist</h3>
-            <p>Vertiefung zu Öffentlichkeit, Diskursmacht und Zeitdiagnose.</p>
+            <p>Öffentlichkeit, Diskursmacht und Zeitdiagnose im Salonmodell.</p>
             <div class="resource-actions">
               <a
                 href="https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&dl=0"
@@ -155,15 +131,31 @@
                 target="_blank"
                 rel="noreferrer"
                 class="btn ghost small"
-                >Direkt (raw=1)</a
+                >Direkt (raw)</a
               >
             </div>
           </article>
         </div>
       </section>
 
+      <section class="panel" id="teil1">
+        <h2>Teil 1: Fragenlabor (nur Freitext, keine MC-Quizze)</h2>
+        <p>
+          Pro Themenfeld beantwortet ihr drei anspruchsvolle Fragen mit
+          Sofortkorrektur, Musterlösung und Export für euer Portfolio.
+        </p>
+
+        <div class="theme-switch" id="themeSwitch" aria-label="Themenauswahl"></div>
+        <article class="theme-panel" id="themePanel"></article>
+      </section>
+
       <section class="panel" id="salonstudio">
         <h2>Salonstudio: Diskussion inszenieren</h2>
+        <p>
+          Das Studio liefert konkrete Funktionen für Probe, Rollenführung,
+          Raumregie und Timing.
+        </p>
+
         <div class="studio-grid">
           <article class="studio-card">
             <h3>Raumskizze (spielbar im Klassenzimmer)</h3>
@@ -173,8 +165,8 @@
               <div class="stage">Salonfläche / Gesprächszentrum</div>
             </div>
             <p>
-              Nutzt die Salonfläche als Halbrund: Gastgeberin mittig, zwei
-              Gegenpositionen links/rechts, Beobachter*innen am Rand.
+              Funktion: räumliche Dramaturgie sichtbar machen. Gastgeber*in in die
+              Mitte, zwei Gegenspieler seitlich, Chronist*in nahe am Rand.
             </p>
           </article>
 
@@ -182,7 +174,11 @@
             <h3>Rollenkarten automatisch ziehen</h3>
             <label for="groupSize">Gruppengröße</label>
             <input id="groupSize" type="number" min="3" max="9" value="5" />
-            <button class="btn small" id="assignRolesBtn">Rollen verteilen</button>
+            <button class="btn small" id="assignRolesBtn" type="button">Rollen verteilen</button>
+            <p class="small-note">
+              Funktion: verhindert Einseitigkeit. Jede Gruppe erhält bewusst
+              unterschiedliche Interessenlagen.
+            </p>
             <ul id="roleList" class="role-list"></ul>
           </article>
 
@@ -192,69 +188,151 @@
             <input id="timerMinutes" type="number" min="1" max="30" value="8" />
             <div class="timer-value" id="timerDisplay">08:00</div>
             <div class="resource-actions">
-              <button class="btn small" id="startTimerBtn">Start</button>
-              <button class="btn ghost small" id="pauseTimerBtn">Pause</button>
-              <button class="btn ghost small" id="resetTimerBtn">Reset</button>
+              <button class="btn small" id="startTimerBtn" type="button">Start</button>
+              <button class="btn ghost small" id="pauseTimerBtn" type="button">Pause</button>
+              <button class="btn ghost small" id="resetTimerBtn" type="button">Reset</button>
             </div>
+            <p class="small-note">
+              Funktion: Rededisziplin, gerechte Sprechzeit und klarer Szenenrhythmus.
+            </p>
+          </article>
+
+          <article class="studio-card">
+            <h3>Moderationsfahrplan für die Probe</h3>
+            <ol class="ordered-list">
+              <li>Auftakt (1 Min): Konfliktthese in einem Satz.</li>
+              <li>Positionierung (2 Min): Jede Rolle markiert ihr Interesse.</li>
+              <li>Konfrontation (4 Min): zwei Gegenargumente + Quellenbezug.</li>
+              <li>Schlusspointe (1 Min): offener Konflikt oder Kompromiss.</li>
+            </ol>
+            <p class="small-note">
+              Funktion: aus losem Rollenspiel wird eine filmisch nutzbare Szene.
+            </p>
           </article>
         </div>
       </section>
 
       <section class="panel" id="teil2">
-        <h2>Teil 2: Kreative Reinszenierung (Kostümfilm)</h2>
+        <h2>Teil 2: Kreative Reinszenierung als Kostümfilm</h2>
         <p>
-          Zielprodukt: 4-8 Minuten Salonfilm mit historisch plausibler Debatte,
-          klarer Rollenführung und dokumentierter Quellenbasis.
+          Zielprodukt: ein 4-8-minütiger Salonfilm mit klarer Streitfrage,
+          belastbaren Quellenbezügen, historischer Atmosphäre und reflektiertem
+          Produktionskommentar.
         </p>
 
         <article class="checklist-box">
-          <h3>Produktionscheckliste</h3>
+          <h3>Produktionsschritte (konkret)</h3>
           <div class="progress-wrap">
             <div class="progress-bar" id="checklistProgress"></div>
           </div>
           <ul class="checklist" id="productionChecklist">
-            <li><label><input type="checkbox" data-check-id="sources" /> Quellen gesichtet und 6 Kernthesen ausgewählt</label></li>
-            <li><label><input type="checkbox" data-check-id="roles" /> Rollen verteilt und Zielkonflikt fixiert</label></li>
-            <li><label><input type="checkbox" data-check-id="script" /> Drehbuchfassung 1 mit Originalzitaten erstellt</label></li>
-            <li><label><input type="checkbox" data-check-id="costume" /> Kostüm- und Requisitenliste vorbereitet</label></li>
-            <li><label><input type="checkbox" data-check-id="shoot" /> Drehtag mit Shotlist geplant</label></li>
-            <li><label><input type="checkbox" data-check-id="edit" /> Rohschnitt, Untertitel und Quellenhinweise ergänzt</label></li>
+            <li><label><input type="checkbox" data-check-id="sources" /> 1. Vier Pflichtfilme gesichtet und zentrale Beobachtungen protokolliert</label></li>
+            <li><label><input type="checkbox" data-check-id="theses" /> 2. Mindestens sechs Kernthesen formuliert und begründet</label></li>
+            <li><label><input type="checkbox" data-check-id="roles" /> 3. Rollen verteilt und Zielkonflikt pro Figur festgelegt</label></li>
+            <li><label><input type="checkbox" data-check-id="script" /> 4. Drehbuch mit Szenenfolge und Dialogkern erstellt</label></li>
+            <li><label><input type="checkbox" data-check-id="shoot" /> 5. Dreh mit Shotlist, Toncheck und Zeitplan durchgeführt</label></li>
+            <li><label><input type="checkbox" data-check-id="edit" /> 6. Schnitt + Untertitel + Quellenhinweise + Reflexion finalisiert</label></li>
           </ul>
         </article>
 
+        <div class="production-grid">
+          <article class="storyboard-box">
+            <h3>Kernthesen-Protokoll</h3>
+            <form id="thesisForm" class="scene-form">
+              <input id="thesisTopic" type="text" placeholder="Thema (Religion/Philosophie/Politik)" required />
+              <input id="thesisClaim" type="text" placeholder="Kernthese" required />
+              <input id="thesisEvidence" type="text" placeholder="Beleg aus Film/Material" required />
+              <input id="thesisCounter" type="text" placeholder="Gegenposition" required />
+              <input id="thesisScene" type="text" placeholder="Einsatz im Film (Szene)" required />
+              <button class="btn small" type="submit">Kernthese hinzufügen</button>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Thema</th>
+                  <th>Kernthese</th>
+                  <th>Beleg</th>
+                  <th>Gegenposition</th>
+                  <th>Szene</th>
+                </tr>
+              </thead>
+              <tbody id="thesisTableBody"></tbody>
+            </table>
+            <button class="btn ghost small" id="exportThesesBtn" type="button">
+              Kernthesen als Markdown exportieren
+            </button>
+          </article>
+
+          <article class="storyboard-box">
+            <h3>Drehbuchentwicklung</h3>
+            <p>
+              1) Kernthesen auswählen, 2) Szenenlogik festlegen, 3) Dialoge schreiben,
+              4) Rollenrhythmus testen, 5) Fassung für den Dreh freigeben.
+            </p>
+            <div class="resource-actions">
+              <a class="btn small" href="../drehbuch-generator.html" target="_blank" rel="noreferrer"
+                >Drehbuchgenerator öffnen</a
+              >
+              <a class="btn ghost small" href="../drehbuch-generator/index.html" target="_blank" rel="noreferrer"
+                >Alternative Generator-Version</a
+              >
+            </div>
+            <p class="small-note">
+              Wenn kein Generator erreichbar ist: Storyboard unten manuell nutzen und
+              dann direkt drehen.
+            </p>
+
+            <h4>Storyboard-Builder</h4>
+            <form id="sceneForm" class="scene-form">
+              <input id="sceneTitle" type="text" placeholder="Szene (z. B. Eröffnungssalon)" required />
+              <input id="sceneGoal" type="text" placeholder="Szenenziel" required />
+              <input id="sceneQuote" type="text" placeholder="Schlüsselzitat" required />
+              <input id="sceneCamera" type="text" placeholder="Kameraidee" required />
+              <button class="btn small" type="submit">Szene hinzufügen</button>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Szene</th>
+                  <th>Ziel</th>
+                  <th>Zitat</th>
+                  <th>Kamera</th>
+                </tr>
+              </thead>
+              <tbody id="sceneTableBody"></tbody>
+            </table>
+            <button class="btn ghost small" id="exportStoryboardBtn" type="button">
+              Storyboard als Markdown exportieren
+            </button>
+          </article>
+        </div>
+
         <article class="storyboard-box">
-          <h3>Storyboard-Builder</h3>
-          <form id="sceneForm" class="scene-form">
-            <input id="sceneTitle" type="text" placeholder="Szene (z. B. Eröffnungssalon)" required />
-            <input id="sceneGoal" type="text" placeholder="Szenenziel" required />
-            <input id="sceneQuote" type="text" placeholder="Schlüsselzitat" required />
-            <input id="sceneCamera" type="text" placeholder="Kameraidee" required />
-            <button class="btn small" type="submit">Szene hinzufügen</button>
+          <h3>Kommentar zum Schaffensprozess (Pflicht zur Abgabe)</h3>
+          <p>
+            Dokumentiert euer eigenes Produkt präzise: inhaltliche Entscheidung,
+            gestalterische Umsetzung, Probleme und Lerngewinn.
+          </p>
+          <form id="processForm" class="process-form">
+            <textarea id="productProfile" placeholder="Produktprofil: Worum geht euer Film, welche Streitfrage steht im Zentrum, welche Rollen tragen den Konflikt?" required></textarea>
+            <textarea id="creativeChoices" placeholder="Gestalterische Entscheidungen: Raum, Kostüm, Sprache, Kamera, Ton, Schnitt." required></textarea>
+            <textarea id="workProcess" placeholder="Schaffensprozess: Wie seid ihr vorgegangen? Welche Schwierigkeiten gab es? Wie habt ihr sie gelöst?" required></textarea>
+            <textarea id="learningGain" placeholder="Lernkommentar: Was habt ihr über Religion/Philosophie/Politik im Vormärz neu verstanden?" required></textarea>
+            <button class="btn small" type="submit">Produktkommentar erzeugen</button>
           </form>
-          <table>
-            <thead>
-              <tr>
-                <th>Szene</th>
-                <th>Ziel</th>
-                <th>Zitat</th>
-                <th>Kamera</th>
-              </tr>
-            </thead>
-            <tbody id="sceneTableBody"></tbody>
-          </table>
-          <button class="btn ghost small" id="exportStoryboardBtn" type="button">
-            Storyboard als Markdown exportieren
-          </button>
+          <div class="resource-actions">
+            <button class="btn ghost small" id="exportProcessBtn" type="button">Produktkommentar exportieren</button>
+          </div>
+          <pre id="processPreview" class="upload-preview"></pre>
         </article>
       </section>
 
       <section class="panel" id="abgabe">
-        <h2>Abgabe ohne GitHub-Zugang</h2>
+        <h2>Abgabeportal für Schüler*innen</h2>
         <p>
-          Technische Lösung: Upload der Filme in einen <strong>gemeinsamen Dropbox-Abgabeordner</strong>
-          (oder einen anderen zentralen Cloud-Upload-Link der Lehrperson). Die App
-          nutzt den hinterlegten Standard-Link und erzeugt ein standardisiertes Metadatenpaket
-          für die Auswertung.
+          Film in den gemeinsamen Dropbox-Abgabeordner hochladen. Danach hier das
+          Metadatenpaket erzeugen und zusammen mit eurem Produktkommentar an die
+          Lehrperson weitergeben.
         </p>
 
         <form id="submissionForm" class="upload-form">
@@ -281,12 +359,10 @@
 
     <footer>
       <p>
-        Quellenbasis im Repo: vollständige Jenny-Dokumente I-III, Dok 4,
-        Transkript Knoblauchhaus, Transkript Biedermeier.
+        Berliner Salonlabor: Analyse -> Inszenierung -> Filmproduktion -> dokumentierte Reflexion.
       </p>
     </footer>
 
-    <script src="papers-data.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

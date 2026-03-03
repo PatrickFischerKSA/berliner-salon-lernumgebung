@@ -2,14 +2,15 @@
 
 Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 
-1. Inhaltssicherung zu **Religion, Philosophie, Politik** auf Basis der Jenny-Papers und Transkripte.
-2. Kreative Reinszenierung als **Salon-Diskussion im Kostümfilm** mit Abgabe **ohne GitHub-Account**.
+1. Pflichtfilme analysieren + differenzierte Freitextfragen zu Religion, Philosophie, Politik.
+2. Eigene Salon-Reinszenierung als Kostümfilm mit strukturierter Produktionsdokumentation.
 
 ## Schnellstart
 
 1. Repo klonen.
 2. `index.html` im Browser öffnen.
-3. In der App bei **Abgabe ohne GitHub-Zugang** den Dropbox-Abgabeordner-Link prüfen/anpassen (Standard-Link ist hinterlegt).
+3. Bei blockiertem Autoplay im Header auf `Hintergrundvideo starten` klicken.
+4. Für die Abgabe den Dropbox-Abgabeordner-Link prüfen/anpassen (Standard-Link ist hinterlegt).
 
 ## Pflichtressourcen (Dropbox)
 
@@ -18,44 +19,26 @@ Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 - [Roman einer ungelösten Epoche](https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0)
 - [Berlins Salons: Macht und Geist](https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&dl=0)
 
-## Struktur
+## Enthaltene Lernmodule
 
-```text
-berliner-salon-lernumgebung/
-├── README.md
-├── index.html
-├── styles.css
-├── app.js
-├── papers-data.js
-├── ORIGINAL_Dokument_JennyI.txt
-├── ORIGINAL_Dokument_JennyII.txt
-├── ORIGINAL_Dokument_Jenny_3.txt
-├── ORIGINAL_Dok_4.txt
-├── ORIGINAL_Transkript_Knoblauchhaus.txt
-├── ORIGINAL_Transkript_Biedermeier.txt
-└── ...weitere Materialdateien
-```
+- Fragenlabor mit drei Themenfeldern (Religion, Philosophie, Politik).
+- Anspruchsvolle Freitextfragen mit Sofortfeedback, Musterlösungen und Export.
+- Ausgebautes Salonstudio: Raumskizze, Rollenverteilung, Timer, Moderationsfahrplan.
+- Produktionspipeline mit Checkliste, Kernthesen-Protokoll und Storyboard-Builder.
+- Verlinkung zum Drehbuchgenerator:
+  - `../drehbuch-generator.html`
+  - `../drehbuch-generator/index.html`
+- Pflichtmodul `Kommentar zum Schaffensprozess` mit Export als Markdown.
 
-## Was die Lernumgebung abdeckt
+## Abgabeprozess für Schüler*innen
 
-- Dynamische Faktenkarten für Religion, Philosophie, Politik.
-- Differenzierte Freitextfragen mit Sofortkorrektur, Rubrikfeedback und Musterlösungen.
-- Strenge Bewertung mit KO-Kriterien:
-  - Pflichtstruktur (These + Beleg + Begründung + Gegeneinwand)
-  - Pflicht-Quellenverweis
-  - Pflicht-Direktzitat
-- Exportfunktion für Antworten + Korrektur + Musterlösung als Markdown.
-- Vollständige Originaltexte der Jenny-Papers und Transkripte direkt sichtbar in der App.
-- Rollenverteilung, Diskussions-Timer, Raumskizze, Storyboard-Export.
-
-## Abgabeprozess ohne GitHub
-
-1. Lehrperson stellt einen Dropbox-Abgabeordner-Link bereit.
-2. Schüler*innen laden Film dort hoch (mit standardisiertem Dateinamen).
-3. App erzeugt:
+1. Film in den gemeinsamen Dropbox-Abgabeordner hochladen.
+2. In der App Metadatenpaket erzeugen:
    - `abgabe_metadaten.json`
    - `abgabeprotokoll.md`
-4. Diese Metadaten gehen an die Lehrperson/LMS (E-Mail, Teams, Moodle, etc.).
+3. Produktkommentar exportieren:
+   - `produktkommentar_salonfilm.md`
+4. Metadaten + Produktkommentar an die Lehrperson/LMS senden.
 
 ## Quellenbasis des Inhalts
 

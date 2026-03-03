@@ -212,6 +212,10 @@ function toDropboxRaw(url) {
   return `${url}${joiner}raw=1`;
 }
 
+function toDropboxStream(url) {
+  return toDropboxRaw(url).replace("https://www.dropbox.com", "https://dl.dropboxusercontent.com");
+}
+
 const dropboxLinks = {
   roman:
     "https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0",
@@ -224,29 +228,16 @@ const dropboxLinks = {
 const defaultSubmissionDropboxLink =
   "https://www.dropbox.com/scl/fo/igd1xncgppgl836hg9n2j/AKy-98Vp0e1A3WAJIhUd-MU?rlkey=0lk0zx8gqj6369s5opkt6fimg&st=i699pgtf&dl=0";
 
-const backgroundClips = [
-  { value: toDropboxRaw(dropboxLinks.roman), label: "Roman einer ungelösten Epoche (Dropbox)" },
-  { value: toDropboxRaw(dropboxLinks.salons), label: "Berlins Salons: Macht und Geist (Dropbox)" },
-  { value: toDropboxRaw(dropboxLinks.knoblauchhaus), label: "Knoblauchhaus-Trailer (Dropbox)" }
-];
-
-const originalPaperLabels = {
-  ORIGINAL_Dokument_JennyI: "Dokument Jenny I (Original)",
-  ORIGINAL_Dokument_JennyII: "Dokument Jenny II (Original)",
-  ORIGINAL_Dokument_Jenny_3: "Dokument Jenny III (Original)",
-  ORIGINAL_Dok_4: "Dok 4 (politische Gesamtanalyse, Original)",
-  ORIGINAL_Transkript_Knoblauchhaus: "Transkript Knoblauchhaus (Original)",
-  ORIGINAL_Transkript_Biedermeier: "Transkript Biedermeier (Original)"
-};
-
-const originalPapers = typeof ORIGINAL_PAPERS === "object" ? ORIGINAL_PAPERS : {};
+const backgroundClip = toDropboxStream(dropboxLinks.knoblauchhaus);
 
 const checklistKey = "salon_checklist_state_v2";
 const scenes = [];
+const theses = [];
 let activeTheme = "religion";
 let timerInterval = null;
 let timerSeconds = 8 * 60;
 let latestOpenEvaluation = null;
+let latestProcessComment = "";
 const structureSpec = {
   thesis: ["these", "ich argumentiere", "ich vertrete", "meine position", "ich behaupte", "ich zeige"],
   evidence: ["beleg", "zitat", "laut", "im text", "quelle", "kapitel", "dok", "transkript"],
@@ -361,20 +352,16 @@ function renderThemePanel() {
         <ul>${theme.facts.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </div>
       <div class="mini-card">
-        <h4>Kernquellen</h4>
-        <ul>${theme.sources.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("")}</ul>
-      </div>
-      <div class="mini-card">
         <h4>Arbeitsauftrag</h4>
         <ul>${theme.tasks.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </div>
       <div class="mini-card">
-        <h4>Korrekturprinzip</h4>
+        <h4>Fragenmodus</h4>
         <ul>
-          <li>Begriffsabdeckung der Kernkonzepte (Rubriktreffer)</li>
-          <li>Pflichtstruktur: These + Beleg + Begründung + Gegeneinwand</li>
-          <li>Pflichtbeleg: Quellenverweis und mindestens ein direktes Zitat</li>
-          <li>KO-Kriterien bei fehlender Struktur oder fehlendem Beleg</li>
+          <li>Schreibe pro Frage mindestens einen klaren Gedankengang mit Beispiel.</li>
+          <li>Nutze konkrete Bezüge zu den Pflichtfilmen und eurem Thema.</li>
+          <li>Hole direktes Feedback und verbessere die Antwort im zweiten Durchgang.</li>
+          <li>Exportiere danach Korrektur und Musterlösung für euer Portfolio.</li>
         </ul>
       </div>
     </div>
@@ -462,10 +449,10 @@ function evaluateOpenAnswers() {
     totalScore += total;
 
     let level = "ausbaufähig";
-    if (hasKo) level = "nicht bestanden (formale Kriterien)";
     if (total >= 85) level = "sehr differenziert";
     else if (total >= 70) level = "differenziert";
     else if (total >= 55) level = "teilweise differenziert";
+    if (hasKo) level = "formale Lücken - bitte überarbeiten";
 
     const checkLabel = {
       lengthOk: `Mindestlänge (>= ${Math.round(question.minWords * 0.7)} Wörter)`,
@@ -474,19 +461,26 @@ function evaluateOpenAnswers() {
       structureOk: "Struktur These+Beleg+Begründung+Gegeneinwand"
     };
 
-    const checklistHtml = Object.entries(strictChecks)
-      .map(([key, ok]) => `${ok ? "OK" : "FEHLT"}: ${checkLabel[key]}`)
-      .join("<br />");
+    const missingFormal = Object.entries(strictChecks)
+      .filter(([, ok]) => !ok)
+      .map(([key]) => checkLabel[key]);
+
+    const strengths = hits.length ? hits.join(", ") : "noch keine klaren Schwerpunktbegriffe";
+    const nextStep =
+      missing.length > 0
+        ? `Inhaltlich nachschärfen bei: ${missing.join(", ")}.`
+        : "Inhaltlich vollständig abgedeckt, jetzt sprachlich präzisieren.";
+    const formalStep =
+      missingFormal.length > 0
+        ? `Formales Update nötig: ${missingFormal.join(" | ")}.`
+        : "Formale Anforderungen sind erfüllt.";
 
     const feedback = `
-      <strong>Score: ${total}/100 (${level})</strong><br />
-      Treffer: ${hits.length ? escapeHtml(hits.join(", ")) : "keine"}<br />
-      Fehlend: ${missing.length ? escapeHtml(missing.join(", ")) : "keine"}<br />
+      <strong>Auswertung: ${total}/100 (${level})</strong><br />
+      Stärken: ${escapeHtml(strengths)}<br />
       Umfang: ${wc} Wörter (Ziel: ${question.minWords})<br />
-      Struktur getroffen: ${structure.hits.length ? escapeHtml(structure.hits.join(", ")) : "keine"}<br />
-      Struktur fehlt: ${structure.missing.length ? escapeHtml(structure.missing.join(", ")) : "keine"}<br />
-      ${checklistHtml}<br />
-      ${hasKo ? "<strong>KO aktiv:</strong> Formale Kriterien nicht erfüllt." : "Formale Kriterien erfüllt."}
+      ${escapeHtml(nextStep)}<br />
+      ${escapeHtml(formalStep)}
     `;
 
     document.getElementById(feedbackId).innerHTML = feedback;
@@ -671,6 +665,87 @@ function renderScenes() {
   });
 }
 
+function renderTheses() {
+  const body = document.getElementById("thesisTableBody");
+  if (!body) return;
+  body.innerHTML = "";
+  theses.forEach((item) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(item.topic)}</td>
+      <td>${escapeHtml(item.claim)}</td>
+      <td>${escapeHtml(item.evidence)}</td>
+      <td>${escapeHtml(item.counter)}</td>
+      <td>${escapeHtml(item.scene)}</td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+function setupThesisForm() {
+  const form = document.getElementById("thesisForm");
+  const exportBtn = document.getElementById("exportThesesBtn");
+  if (!form || !exportBtn) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    theses.push({
+      topic: document.getElementById("thesisTopic").value.trim(),
+      claim: document.getElementById("thesisClaim").value.trim(),
+      evidence: document.getElementById("thesisEvidence").value.trim(),
+      counter: document.getElementById("thesisCounter").value.trim(),
+      scene: document.getElementById("thesisScene").value.trim()
+    });
+    form.reset();
+    renderTheses();
+  });
+
+  exportBtn.addEventListener("click", () => {
+    if (theses.length === 0) return;
+    const lines = ["# Kernthesen-Protokoll Salonfilm", ""];
+    theses.forEach((item, index) => {
+      lines.push(`## Kernthese ${index + 1}`);
+      lines.push(`- Thema: ${item.topic}`);
+      lines.push(`- These: ${item.claim}`);
+      lines.push(`- Beleg: ${item.evidence}`);
+      lines.push(`- Gegenposition: ${item.counter}`);
+      lines.push(`- Einsatz im Film: ${item.scene}`);
+      lines.push("");
+    });
+    downloadFile("kernthesen_protokoll.md", lines.join("\n"), "text/markdown");
+  });
+}
+
+function setupProcessForm() {
+  const form = document.getElementById("processForm");
+  const preview = document.getElementById("processPreview");
+  const exportBtn = document.getElementById("exportProcessBtn");
+  if (!form || !preview || !exportBtn) return;
+
+  function buildProcessComment() {
+    const productProfile = document.getElementById("productProfile").value.trim();
+    const creativeChoices = document.getElementById("creativeChoices").value.trim();
+    const workProcess = document.getElementById("workProcess").value.trim();
+    const learningGain = document.getElementById("learningGain").value.trim();
+
+    latestProcessComment = `# Produktkommentar Salonfilm\n\n## 1) Produktprofil\n${productProfile}\n\n## 2) Gestalterische Entscheidungen\n${creativeChoices}\n\n## 3) Schaffensprozess\n${workProcess}\n\n## 4) Lernkommentar\n${learningGain}\n`;
+    preview.textContent = latestProcessComment;
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    buildProcessComment();
+  });
+
+  exportBtn.addEventListener("click", () => {
+    if (!latestProcessComment) {
+      buildProcessComment();
+    }
+    if (!latestProcessComment) return;
+    downloadFile("produktkommentar_salonfilm.md", latestProcessComment, "text/markdown");
+  });
+}
+
 function slugify(input) {
   return input
     .toLowerCase()
@@ -808,140 +883,55 @@ function setupSubmissionForm() {
   });
 }
 
-function setupBackgroundControls() {
+function setupBackgroundVideo() {
   const video = document.getElementById("bgVideo");
-  const select = document.getElementById("bgVideoSelect");
-  const blurRange = document.getElementById("bgBlurRange");
-  const brightnessRange = document.getElementById("bgBrightnessRange");
   const status = document.getElementById("bgVideoStatus");
+  const startBtn = document.getElementById("bgStartBtn");
+  if (!video || !status || !startBtn) return;
 
-  backgroundClips.forEach((clip) => {
-    const option = document.createElement("option");
-    option.value = clip.value;
-    option.textContent = clip.label;
-    select.appendChild(option);
-  });
+  let fallbackUsed = false;
+  video.src = backgroundClip;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
 
-  function applyClip(filename) {
-    video.pause();
-    video.src = filename;
-    video.load();
+  const tryPlay = () => {
     const playResult = video.play();
     if (playResult && typeof playResult.then === "function") {
       playResult
         .then(() => {
-          status.textContent = `Hintergrund aktiv: ${filename}`;
+          status.textContent = "Hintergrundvideo aktiv.";
+          startBtn.style.display = "none";
         })
         .catch(() => {
-          status.textContent = `Konnte ${filename} nicht automatisch starten. Klick im Browser auf Play für Medien.`;
+          status.textContent = "Autoplay blockiert. Bitte auf 'Hintergrundvideo starten' klicken.";
+          startBtn.style.display = "inline-block";
         });
     }
-  }
+  };
 
   video.addEventListener("loadeddata", () => {
-    status.textContent = `Hintergrund aktiv: ${video.currentSrc.split("/").pop()}`;
+    status.textContent = "Hintergrundvideo geladen.";
   });
 
   video.addEventListener("error", () => {
-    status.textContent = "Video konnte nicht geladen werden. Prüfe Dropbox-Link oder Netzwerkzugriff.";
-  });
-
-  select.addEventListener("change", () => applyClip(select.value));
-  blurRange.addEventListener("input", () => {
-    document.documentElement.style.setProperty("--bg-blur", `${blurRange.value}px`);
-  });
-  brightnessRange.addEventListener("input", () => {
-    document.documentElement.style.setProperty("--bg-brightness", `${Number(brightnessRange.value) / 100}`);
-  });
-
-  select.value = backgroundClips[0].value;
-  applyClip(select.value);
-}
-
-function setupOriginalPaperViewer() {
-  const select = document.getElementById("paperSelect");
-  const searchInput = document.getElementById("paperSearchInput");
-  const searchButton = document.getElementById("paperSearchBtn");
-  const exportButton = document.getElementById("paperExportBtn");
-  const viewer = document.getElementById("paperViewer");
-  const meta = document.getElementById("paperMeta");
-  const results = document.getElementById("paperSearchResults");
-
-  const keys = Object.keys(originalPapers);
-  if (!keys.length) {
-    viewer.textContent = "Keine eingebetteten Originalquellen gefunden.";
-    meta.textContent = "Fehler: papers-data.js fehlt oder ist leer.";
-    return;
-  }
-
-  keys.forEach((key) => {
-    const option = document.createElement("option");
-    option.value = key;
-    option.textContent = originalPaperLabels[key] || key;
-    select.appendChild(option);
-  });
-
-  function showCurrentPaper() {
-    const key = select.value;
-    const text = originalPapers[key] || "";
-    viewer.textContent = text;
-    const wc = wordsCount(text);
-    meta.textContent = `${originalPaperLabels[key] || key} · ${text.length} Zeichen · ${wc} Wörter`;
-    results.innerHTML = "";
-  }
-
-  function searchInPaper() {
-    const key = select.value;
-    const text = originalPapers[key] || "";
-    const query = searchInput.value.trim();
-    results.innerHTML = "";
-
-    if (!query) {
+    if (!fallbackUsed) {
+      fallbackUsed = true;
+      video.src = toDropboxRaw(dropboxLinks.knoblauchhaus);
+      video.load();
+      status.textContent = "Direktstream fehlgeschlagen, versuche Dropbox-raw-Link...";
+      tryPlay();
       return;
     }
-
-    const normalizedText = normalizeText(text);
-    const normalizedQuery = normalizeText(query);
-
-    const matches = [];
-    let pos = normalizedText.indexOf(normalizedQuery);
-    while (pos !== -1) {
-      matches.push(pos);
-      pos = normalizedText.indexOf(normalizedQuery, pos + normalizedQuery.length);
-      if (matches.length >= 30) break;
-    }
-
-    if (!matches.length) {
-      const li = document.createElement("li");
-      li.textContent = `Keine Treffer für '${query}'.`;
-      results.appendChild(li);
-      return;
-    }
-
-    const summary = document.createElement("li");
-    summary.textContent = `Treffer für '${query}': ${matches.length} (erste ${Math.min(matches.length, 10)} angezeigt)`;
-    results.appendChild(summary);
-
-    matches.slice(0, 10).forEach((index) => {
-      const start = Math.max(0, index - 70);
-      const end = Math.min(text.length, index + query.length + 90);
-      const snippet = text.slice(start, end).replace(/\n+/g, " ");
-      const li = document.createElement("li");
-      li.textContent = `...${snippet}...`;
-      results.appendChild(li);
-    });
-  }
-
-  select.addEventListener("change", showCurrentPaper);
-  searchButton.addEventListener("click", searchInPaper);
-  exportButton.addEventListener("click", () => {
-    const key = select.value;
-    const filename = `${key}.txt`;
-    downloadFile(filename, originalPapers[key] || "", "text/plain");
+    status.textContent = "Video konnte nicht geladen werden. Bitte 'Film direkt testen' nutzen.";
+    startBtn.style.display = "none";
   });
 
-  select.value = keys[0];
-  showCurrentPaper();
+  startBtn.addEventListener("click", () => {
+    tryPlay();
+  });
+
+  tryPlay();
 }
 
 function init() {
@@ -955,10 +945,11 @@ function init() {
   document.getElementById("timerMinutes").addEventListener("change", resetTimer);
 
   loadChecklist();
+  setupThesisForm();
   setupSceneForm();
+  setupProcessForm();
   setupSubmissionForm();
-  setupBackgroundControls();
-  setupOriginalPaperViewer();
+  setupBackgroundVideo();
   updateTimerDisplay();
 }
 
