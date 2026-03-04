@@ -9,6 +9,10 @@
   <body>
     <video class="bg-video" id="bgVideo" autoplay muted loop playsinline preload="auto"></video>
     <div class="bg-layer"></div>
+    <div class="bg-control-mini" id="bgControlMini">
+      <button class="btn small" id="bgStartBtn" type="button">Hintergrund starten</button>
+      <span class="bg-status-mini" id="bgVideoStatus"></span>
+    </div>
 
     <header class="hero">
       <p class="eyebrow">Projektumgebung | Vormärz, Biedermeier, Salonkultur</p>
@@ -18,18 +22,6 @@
         differenzierte Freitextfragen lösen, danach eine eigene Salon-Diskussion
         inszenieren, drehen, schneiden und dokumentiert abgeben.
       </p>
-
-      <article class="hero-film">
-        <h3>Geblurte Hintergrundatmosphäre: knoblauchhaus.mp4</h3>
-        <p>
-          Es wird nur die lokale Datei <code>knoblauchhaus.mp4</code> verwendet.
-          Wenn der Browser Autoplay blockiert, einmal auf den Start-Button klicken.
-        </p>
-        <div class="resource-actions">
-          <button class="btn small" id="bgStartBtn" type="button">Hintergrundvideo starten</button>
-        </div>
-        <p class="bg-status" id="bgVideoStatus">Hintergrundvideo wird vorbereitet...</p>
-      </article>
 
       <div class="hero-actions">
         <a href="#ressourcen" class="btn">Zu den Filmen</a>

@@ -9,7 +9,7 @@ Interaktive Lernumgebung für ein zweiphasiges Unterrichtsprojekt:
 
 1. Repo klonen.
 2. `index.html` im Browser öffnen.
-3. Die Datei `knoblauchhaus.mp4` neben `index.html` ablegen (lokaler Hintergrundclip).
+3. Die Datei `knoblauchhaus.mp4` in `assets/` ablegen (`assets/knoblauchhaus.mp4`).
 4. Bei blockiertem Autoplay im Header auf `Hintergrundvideo starten` klicken.
 5. Für die Abgabe den Dropbox-Abgabeordner-Link prüfen/anpassen (Standard-Link ist hinterlegt).
 

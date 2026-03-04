@@ -207,7 +207,18 @@ const roles = [
 const defaultSubmissionDropboxLink =
   "https://www.dropbox.com/scl/fo/igd1xncgppgl836hg9n2j/AKy-98Vp0e1A3WAJIhUd-MU?rlkey=0lk0zx8gqj6369s5opkt6fimg&st=i699pgtf&dl=0";
 
-const backgroundClipCandidates = ["knoblauchhaus.mp4", "Knoblauchhaus.mp4", "./knoblauchhaus.mp4", "./Knoblauchhaus.mp4"];
+const backgroundClipCandidates = [
+  "assets/knoblauchhaus.mp4",
+  "assets/Knoblauchhaus.mp4",
+  "assets/knoblauch.mp4",
+  "assets/Knoblauch.mp4",
+  "knoblauchhaus.mp4",
+  "Knoblauchhaus.mp4",
+  "knoblauch.mp4",
+  "Knoblauch.mp4",
+  "./assets/knoblauchhaus.mp4",
+  "./knoblauchhaus.mp4"
+];
 const REQUIRED_THESES_COUNT = 12;
 const MINIMUM_SHOTS_COUNT = 8;
 
@@ -1105,44 +1116,51 @@ function setupBackgroundVideo() {
   const video = document.getElementById("bgVideo");
   const status = document.getElementById("bgVideoStatus");
   const startBtn = document.getElementById("bgStartBtn");
-  if (!video || !status || !startBtn) return;
+  const control = document.getElementById("bgControlMini");
+  if (!video || !status || !startBtn || !control) return;
 
   let clipIndex = 0;
   video.src = backgroundClipCandidates[clipIndex];
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
+  status.style.display = "none";
 
   const tryPlay = () => {
     const playResult = video.play();
     if (playResult && typeof playResult.then === "function") {
       playResult
         .then(() => {
-          status.textContent = "Hintergrundvideo aktiv.";
+          status.style.display = "none";
           startBtn.style.display = "none";
+          control.classList.add("hidden");
         })
         .catch(() => {
-          status.textContent = "Autoplay blockiert. Bitte auf 'Hintergrundvideo starten' klicken.";
+          status.textContent = "Autoplay blockiert - Start klicken.";
+          status.style.display = "inline";
           startBtn.style.display = "inline-block";
+          control.classList.remove("hidden");
         });
     }
   };
 
-  video.addEventListener("loadeddata", () => {
-    status.textContent = `Hintergrundvideo geladen (${backgroundClipCandidates[clipIndex]}).`;
-  });
+  video.addEventListener("loadeddata", () => {});
 
   video.addEventListener("error", () => {
     if (clipIndex < backgroundClipCandidates.length - 1) {
       clipIndex += 1;
       video.src = backgroundClipCandidates[clipIndex];
       video.load();
-      status.textContent = `Versuche alternative Dateischreibweise (${backgroundClipCandidates[clipIndex]})...`;
+      status.textContent = `Fallback: ${backgroundClipCandidates[clipIndex]}`;
+      status.style.display = "inline";
+      control.classList.remove("hidden");
       tryPlay();
       return;
     }
     status.textContent =
-      "Lokale Datei nicht gefunden. Lege die Datei als knoblauchhaus.mp4 im Repo-Root neben index.html ab.";
+      "Asset fehlt: Lege knoblauchhaus.mp4 in /assets ab.";
+    status.style.display = "inline";
+    control.classList.remove("hidden");
     startBtn.style.display = "none";
   });
 
