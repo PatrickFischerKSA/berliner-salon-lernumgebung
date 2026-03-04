@@ -204,31 +204,10 @@ const roles = [
   "Arbeiterstimme (soziale Frage)"
 ];
 
-function toDropboxRaw(url) {
-  if (url.includes("raw=1")) return url;
-  if (url.includes("dl=0")) return url.replace("dl=0", "raw=1");
-  if (url.includes("dl=1")) return url.replace("dl=1", "raw=1");
-  const joiner = url.includes("?") ? "&" : "?";
-  return `${url}${joiner}raw=1`;
-}
-
-function toDropboxStream(url) {
-  return toDropboxRaw(url).replace("https://www.dropbox.com", "https://dl.dropboxusercontent.com");
-}
-
-const dropboxLinks = {
-  roman:
-    "https://www.dropbox.com/scl/fi/eybabejkhl6xrri8z10q2/roman_epoche.mp4?rlkey=a5ej6bdynincwffct79fl2dbo&st=0lok9v1m&dl=0",
-  salons:
-    "https://www.dropbox.com/scl/fi/rzmziaipgntj0kk3mdyfh/berlins_salons_macht_geist.mp4?rlkey=xauic0dx303yk4y30ddcwe9h5&st=hyvfz9fl&dl=0",
-  knoblauchhaus:
-    "https://www.dropbox.com/scl/fi/rc4cg0kpdkkx9cnq5pvon/Das-Knoblauchhaus-Wie-hat-man-im-Knoblauchhaus-in-der-Berliner-Biedermeierzeit-gewohnt.mp4?rlkey=rfd38xpgegrn1xr6c8r08rl84&st=blr3mct3&dl=0"
-};
-
 const defaultSubmissionDropboxLink =
   "https://www.dropbox.com/scl/fo/igd1xncgppgl836hg9n2j/AKy-98Vp0e1A3WAJIhUd-MU?rlkey=0lk0zx8gqj6369s5opkt6fimg&st=i699pgtf&dl=0";
 
-const backgroundClip = toDropboxStream(dropboxLinks.knoblauchhaus);
+const backgroundClipCandidates = ["knoblauchhaus.mp4", "Knoblauchhaus.mp4", "./knoblauchhaus.mp4", "./Knoblauchhaus.mp4"];
 const REQUIRED_THESES_COUNT = 12;
 const MINIMUM_SHOTS_COUNT = 8;
 
@@ -1128,8 +1107,8 @@ function setupBackgroundVideo() {
   const startBtn = document.getElementById("bgStartBtn");
   if (!video || !status || !startBtn) return;
 
-  let fallbackUsed = false;
-  video.src = backgroundClip;
+  let clipIndex = 0;
+  video.src = backgroundClipCandidates[clipIndex];
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
@@ -1150,19 +1129,20 @@ function setupBackgroundVideo() {
   };
 
   video.addEventListener("loadeddata", () => {
-    status.textContent = "Hintergrundvideo geladen.";
+    status.textContent = `Hintergrundvideo geladen (${backgroundClipCandidates[clipIndex]}).`;
   });
 
   video.addEventListener("error", () => {
-    if (!fallbackUsed) {
-      fallbackUsed = true;
-      video.src = toDropboxRaw(dropboxLinks.knoblauchhaus);
+    if (clipIndex < backgroundClipCandidates.length - 1) {
+      clipIndex += 1;
+      video.src = backgroundClipCandidates[clipIndex];
       video.load();
-      status.textContent = "Direktstream fehlgeschlagen, versuche Dropbox-raw-Link...";
+      status.textContent = `Versuche alternative Dateischreibweise (${backgroundClipCandidates[clipIndex]})...`;
       tryPlay();
       return;
     }
-    status.textContent = "Video konnte nicht geladen werden. Bitte 'Film direkt testen' nutzen.";
+    status.textContent =
+      "Lokale Datei nicht gefunden. Lege die Datei als knoblauchhaus.mp4 im Repo-Root neben index.html ab.";
     startBtn.style.display = "none";
   });
 
