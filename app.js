@@ -4,22 +4,24 @@ const themeData = {
     tags: ["Pantheismus", "Trinität", "Konversion", "Abendmahl"],
     intro:
       "Kernkonflikt: Jenny kann religiöse Wahrheiten nicht einfach übernehmen, weil sie Denken und Glauben nicht gegeneinander ausspielen will.",
+    film: {
+      title: "Der Preis des Glaubens",
+      dropbox:
+        "https://www.dropbox.com/scl/fi/1a6vjyutab3fhnog5qozk/Der_Preis_des_Glaubens.mp4?rlkey=i9qc4bp15w6wrkjv4mu7axynu&st=018k0jgk&dl=0",
+      direct:
+        "https://www.dropbox.com/scl/fi/1a6vjyutab3fhnog5qozk/Der_Preis_des_Glaubens.mp4?rlkey=i9qc4bp15w6wrkjv4mu7axynu&st=018k0jgk&raw=1"
+    },
     facts: [
       "Die Originalpapiere markieren Jennys pantheistische Ausgangslage: Gott ist in allem gegenwärtig, nicht nur in kirchlicher Form.",
       "Der Pastor vertritt ein moderates Christentum (Liebe, Duldung), verlangt aber am Ende den Schritt zum Glaubensgehorsam.",
       "Trinität, Inkarnation und Wunder werden als intellektuelle Zumutung beschrieben; der Imperativ 'Glaube' bleibt strittig.",
       "Taufe und Abendmahl erscheinen nicht nur privat, sondern als sozial-politische Akte mit Folgen für Zugehörigkeit und Reputation."
     ],
-    sources: [
-      "ORIGINAL_Dokument_JennyI.txt",
-      "ORIGINAL_Dokument_JennyII.txt",
-      "ORIGINAL_Dokument_Jenny_3.txt",
-      "ORIGINAL_Dok_4.txt"
-    ],
+    sources: ["Der Preis des Glaubens", "Knoblauchhaus", "Wir Deutschen Folge 11"],
     tasks: [
       "Zeigt im Dialog, wo Gewissen, Vernunft und Ordnung kollidieren.",
       "Baut mindestens ein wörtliches Kernzitat in eure Szene ein.",
-      "Markiert im Skript klar den Unterschied zwischen Glaubensforderung und argumentativer Einsicht."
+      "Markiert im Film klar den Unterschied zwischen Glaubensforderung und argumentativer Einsicht."
     ],
     openQuestions: [
       {
@@ -68,17 +70,20 @@ const themeData = {
     tags: ["Vernunft", "Erkenntniskritik", "Form vs. Geist", "Selbstprüfung"],
     intro:
       "Kernkonflikt: Die Figuren verhandeln Wahrheit nicht nur dogmatisch, sondern erkenntnistheoretisch und anthropologisch.",
+    film: {
+      title: "Jennys Gewissenskrise",
+      dropbox:
+        "https://www.dropbox.com/scl/fi/d3eacaxg97jfse403e76g/Jennys_Gewissenskrise.mp4?rlkey=6kantghzr5w3eohcvxvwwoiv2&st=j657g6uj&dl=0",
+      direct:
+        "https://www.dropbox.com/scl/fi/d3eacaxg97jfse403e76g/Jennys_Gewissenskrise.mp4?rlkey=6kantghzr5w3eohcvxvwwoiv2&st=j657g6uj&raw=1"
+    },
     facts: [
       "Jenny fordert Beweisbarkeit: Was als Wahrheit gelten soll, muss vernünftig nachvollziehbar sein.",
       "Joseph relativiert 'positive Religion' historisch und betont einen moralischen Kern (Nächstenliebe, Wahrheit).",
       "Die Differenz Form/Geist erklärt, wie religiöse Formen den ethischen Gehalt überdecken können.",
       "Die Papers zeigen eine Psychologie der Selbsttäuschung: Überzeugungen können konstruiert wirken, ohne tragfähige Basis."
     ],
-    sources: [
-      "ORIGINAL_Dokument_JennyI.txt",
-      "ORIGINAL_Dokument_JennyII.txt",
-      "ORIGINAL_Dokument_Jenny_3.txt"
-    ],
+    sources: ["Jennys Gewissenskrise", "Roman einer ungelösten Epoche", "Knoblauchhaus"],
     tasks: [
       "Prüft jede Behauptung auf Erkenntnisstatus: Wissen, Glaube, Hoffnung, Vermutung.",
       "Zeigt, wie Form/Geist in eurer Szene als Konfliktmotor funktioniert.",
@@ -131,17 +136,20 @@ const themeData = {
     tags: ["Vormärz", "Emanzipation", "Zensur", "1848"],
     intro:
       "Kernkonflikt: Der Romanraum ist privat, aber politisch aufgeladen. Debatten über Recht, Nation und Zugehörigkeit laufen im Salon.",
+    film: {
+      title: "Zwei Welten, eine Ära",
+      dropbox:
+        "https://www.dropbox.com/scl/fi/sykoxemy03n4nv6svvqon/Zwei_Welten-_eine_-ra.mp4?rlkey=o925zv74hc6xozc4mh9x91v4i&st=cunb3l30&dl=0",
+      direct:
+        "https://www.dropbox.com/scl/fi/sykoxemy03n4nv6svvqon/Zwei_Welten-_eine_-ra.mp4?rlkey=o925zv74hc6xozc4mh9x91v4i&st=cunb3l30&raw=1"
+    },
     facts: [
       "Dok 4 verortet den Roman klar im Vormärz (1815-1848): Repression, Zensur und eingeschränkte Öffentlichkeit.",
       "Die Emanzipationsfrage erscheint als Rechts- und Staatsbürgerschaftsfrage, nicht nur als Moralappell.",
       "Nationalstaatsidee und liberales Bürgertum bleiben ambivalent: starke Rhetorik, aber geringe institutionelle Durchsetzungskraft.",
-      "Das Biedermeier-Transkript zeigt den Rahmen: private Rückzüge, Informationsräume, dann Revolutionsschub 1848."
+      "Der Biedermeier-Film zeigt den Rahmen: private Rückzüge, Informationsräume, dann Revolutionsschub 1848."
     ],
-    sources: [
-      "ORIGINAL_Dok_4.txt",
-      "ORIGINAL_Transkript_Biedermeier.txt",
-      "ORIGINAL_Transkript_Knoblauchhaus.txt"
-    ],
+    sources: ["Zwei Welten, eine Ära", "Wir Deutschen Folge 11", "Roman einer ungelösten Epoche"],
     tasks: [
       "Baut einen Konflikt um 'Recht vs. gesellschaftliche Ordnung' in eure Szene ein.",
       "Nutzt mindestens drei historische Marker (1819, 1832, 1848) in Dialog oder Zwischentiteln.",
@@ -176,16 +184,16 @@ const themeData = {
       },
       {
         prompt:
-          "Nimm Stellung zur These: 'Politik verschwindet nach Kapitel 18 nicht, sondern wird strukturell.' Beziehe Roman- und Transkriptmaterial ein.",
+          "Nimm Stellung zur These: 'Politik verschwindet nach Kapitel 18 nicht, sondern wird strukturell.' Beziehe Roman- und Filmmaterial ein.",
         minWords: 160,
         rubric: [
           { concept: "These aufgenommen", keywords: ["politik verschwindet nicht", "strukturell", "these"] },
           { concept: "Romanbezug", keywords: ["kapitel", "jenny", "figur", "ordnung"] },
-          { concept: "Transkriptbezug", keywords: ["biedermeier", "1848", "paulskirche", "revolution"] },
+          { concept: "Filmbezug", keywords: ["biedermeier", "1848", "paulskirche", "revolution", "film"] },
           { concept: "Eigenes Urteil", keywords: ["ich stimme zu", "ich widerspreche", "begründung"] }
         ],
         modelAnswer:
-          "Die These ist überzeugend: Nach Kapitel 18 nimmt die explizite politische Rede zwar ab, doch die Konflikte wirken als Struktur weiter. Fragen von Zugehörigkeit, Ordnung, Geschlecht und Anerkennung bleiben handlungsbestimmend, auch wenn sie nicht mehr als programmatische Parolen auftreten. Das Transkriptmaterial stützt diese Lesart: Im Biedermeier verschiebt sich politischer Streit häufig in private und halböffentliche Formen, bevor die Spannungen 1848 wieder offen eruptiv werden. Politik ist damit nicht weg, sondern in soziale Praktiken und Lebensformen eingelagert."
+          "Die These ist überzeugend: Nach Kapitel 18 nimmt die explizite politische Rede zwar ab, doch die Konflikte wirken als Struktur weiter. Fragen von Zugehörigkeit, Ordnung, Geschlecht und Anerkennung bleiben handlungsbestimmend, auch wenn sie nicht mehr als programmatische Parolen auftreten. Das Filmmaterial stützt diese Lesart: Im Biedermeier verschiebt sich politischer Streit häufig in private und halböffentliche Formen, bevor die Spannungen 1848 wieder offen eruptiv werden. Politik ist damit nicht weg, sondern in soziale Praktiken und Lebensformen eingelagert."
       }
     ]
   }
@@ -285,7 +293,7 @@ function evaluateStructure(normalizedAnswer) {
 }
 
 function deriveSourceHints(themeSources) {
-  const hints = new Set(["dok 4", "kapitel", "transkript", "quelle", "original_dokument", "original_transkript"]);
+  const hints = new Set(["film", "video", "quelle", "kapitel", "dokumentation"]);
   themeSources.forEach((source) => {
     const normalizedSource = normalizeText(source).replaceAll(".txt", "");
     hints.add(normalizedSource);
@@ -342,8 +350,12 @@ function renderThemePanel() {
 
     <div class="two-col">
       <div class="mini-card">
-        <h4>Faktenblatt</h4>
-        <ul>${theme.facts.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        <h4>Themenfilm</h4>
+        <p><strong>${escapeHtml(theme.film.title)}</strong></p>
+        <div class="resource-actions">
+          <a class="btn small" href="${escapeHtml(theme.film.dropbox)}" target="_blank" rel="noreferrer">Dropbox-Link</a>
+          <a class="btn ghost small" href="${escapeHtml(theme.film.direct)}" target="_blank" rel="noreferrer">Direkt</a>
+        </div>
       </div>
       <div class="mini-card">
         <h4>Arbeitsauftrag</h4>
@@ -1086,7 +1098,7 @@ function setupSubmissionForm() {
       generated_at: new Date().toISOString()
     };
 
-    const submissionTicket = `# Abgabeprotokoll Salonfilm\n\n- Abgabe-ID: ${submissionId}\n- Klasse: ${className}\n- Gruppe: ${groupName}\n- Fokus: ${topicName}\n- Dauer: ${duration}\n- Mitglieder: ${members.join(", ")}\n- Gewählte Videodatei: ${videoFile}\n- Empfohlener Dateiname: ${recommendedFilename}\n- Dropbox-Abgabeordner: ${dropboxRequestLink}\n- Upload-Link Film: ${uploadedVideoLink || "(noch nicht eingetragen)"}\n- Kernthesen: ${theses.length}/${REQUIRED_THESES_COUNT}\n- Rollenzeilen: ${rolePlans.length}\n- Shots: ${shotPlans.length}\n\n## Ablauf\n1. Film in den Dropbox-Abgabeordner hochladen.\n2. Optional den öffentlichen Upload-Link eintragen.\n3. Metadatenpaket an Lehrperson senden.\n\n## Quellenbasis\n- Jenny-Papers (Originaltexte)\n- Transkript Knoblauchhaus\n- Transkript Biedermeier/1848\n`;
+    const submissionTicket = `# Abgabeprotokoll Salonfilm\n\n- Abgabe-ID: ${submissionId}\n- Klasse: ${className}\n- Gruppe: ${groupName}\n- Fokus: ${topicName}\n- Dauer: ${duration}\n- Mitglieder: ${members.join(", ")}\n- Gewählte Videodatei: ${videoFile}\n- Empfohlener Dateiname: ${recommendedFilename}\n- Dropbox-Abgabeordner: ${dropboxRequestLink}\n- Upload-Link Film: ${uploadedVideoLink || "(noch nicht eingetragen)"}\n- Kernthesen: ${theses.length}/${REQUIRED_THESES_COUNT}\n- Rollenzeilen: ${rolePlans.length}\n- Shots: ${shotPlans.length}\n\n## Ablauf\n1. Film in den Dropbox-Abgabeordner hochladen.\n2. Optional den öffentlichen Upload-Link eintragen.\n3. Metadatenpaket an Lehrperson senden.\n\n## Filmbezug\n- Der Preis des Glaubens\n- Jennys Gewissenskrise\n- Zwei Welten, eine Ära\n`;
 
     downloadFile("abgabe_metadaten.json", JSON.stringify(submissionManifest, null, 2), "application/json");
     downloadFile("abgabeprotokoll.md", submissionTicket, "text/markdown");
